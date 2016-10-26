@@ -1,9 +1,26 @@
-breed [bee bees]
-breed [mite mites]
+breed [bees bee]
+breed [mites mite]
+
+bees-own [boundaryX boundaryY] ;x and y bounds will be neccesary.
+
+to reset
+  ask patches [set pcolor white]
+end
 
 to set-up
+  set-up-patches
   set-up-bees
   set-up-mites
+end
+
+to set-up-patches
+ask patches
+  [ ifelse (pxcor > 0 and pycor > 0) ;if X and Y coordinate both greater than 0
+    or (pxcor < 0 and pycor < 0) ;if X and Y coordinate both less than 0
+      [ set pcolor 25 ]
+      [ set pcolor 26 ];Shades of orange
+    if (pxcor = 0 or pycor = 0) ;creates a central line. Not neccessary but is for aesthetics.
+    [set pcolor white]]
 end
 
 
@@ -48,6 +65,40 @@ GRAPHICS-WINDOW
 1
 ticks
 30.0
+
+BUTTON
+23
+49
+101
+82
+set up
+set-up
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+106
+49
+176
+82
+reset
+reset
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
