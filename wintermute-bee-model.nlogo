@@ -1,31 +1,60 @@
 breed [bees bee]
+breed [queen-bees queen-bee] ;Note - Inheritance does not exist in netlogo
 breed [mites mite]
+breed [hives hive] ;Probably a better way to do this than creating a breed
 
-bees-own [boundaryX boundaryY] ;x and y bounds will be neccesary.
+bees-own [home-x home-y] ;x and y bounds will be neccesary.
+queen-bees-own [hive] ;this needs to mirror bees-own, but add further variables.
+mites-own[]
+hives-own[hive-x hive-y]
 
+globals [hives-set]
+;Buttons
 to reset
-  ask patches [set pcolor white]
+  clear-all
+  ask patches [set pcolor 64]
 end
 
 to set-up
+  reset
   set-up-patches
+  set-up-hives
   set-up-bees
   set-up-mites
 end
 
+;Set-up
 to set-up-patches
-ask patches
-  [ ifelse (pxcor > 0 and pycor > 0) ;if X and Y coordinate both greater than 0
-    or (pxcor < 0 and pycor < 0) ;if X and Y coordinate both less than 0
-      [ set pcolor 25 ]
-      [ set pcolor 26 ];Shades of orange
-    if (pxcor = 0 or pycor = 0) ;creates a central line. Not neccessary but is for aesthetics.
-    [set pcolor white]]
+ask patches [set pcolor 64]
+end
+
+
+to set-up-hives
+  create-hives initial-hives
+  [
+    set shape "circle"
+    set color 25
+    ;let x random-pxcor
+    ;let y random-pycor
+    setxy random-pxcor random-pycor
+    ;ask patch x y [set pcolor 24]
+    ;This and the 'lets' up above set the patch behind the hive. have left this here because it may or may not be useful
+  ]
 end
 
 
 to set-up-bees
-
+  let hiveslist[]                                 ;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+  ask hives [ set hiveslist lput self hiveslist ] ;can probably delete these two lines. Leave them here for now though
+  ask hives [set hive-x xcor set hive-y ycor] ;trying to get hold of the patches co-ords that the hive is on, to use sprout
+  ask hives
+  [
+    ask patch-at hive-x hive-y ;so that we can sprout from that patch
+    [
+      sprout-bees initial-bees-per-hive ;sprouts the amount of bees per hive from that patch
+    ]
+  ]
+  ask bees [set color yellow]
 end
 
 
@@ -67,10 +96,10 @@ ticks
 30.0
 
 BUTTON
-23
-49
-101
-82
+5
+81
+83
+114
 set up
 set-up
 NIL
@@ -84,10 +113,10 @@ NIL
 1
 
 BUTTON
-106
-49
-176
-82
+84
+81
+154
+114
 reset
 reset
 NIL
@@ -99,6 +128,36 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+6
+17
+178
+50
+initial-hives
+initial-hives
+0
+100
+4
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+5
+50
+202
+83
+initial-bees-per-hive
+initial-bees-per-hive
+0
+100
+4
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
