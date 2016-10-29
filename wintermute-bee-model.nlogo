@@ -8,7 +8,7 @@ queen-bees-own [hive] ;this needs to mirror bees-own, but add further variables.
 mites-own[]
 hives-own[hive-x hive-y]
 
-globals [hives-set]
+globals [hives-set bee-count]
 ;Buttons
 to reset
   clear-all
@@ -36,7 +36,10 @@ to set-up-hives
     set color 25
     ;let x random-pxcor
     ;let y random-pycor
-    setxy random-pxcor random-pycor
+    set hive-x random-pxcor
+    set hive-y random-pycor
+    setxy hive-x hive-y
+
     ;ask patch x y [set pcolor 24]
     ;This and the 'lets' up above set the patch behind the hive. have left this here because it may or may not be useful
   ]
@@ -46,14 +49,21 @@ end
 to set-up-bees
   let hiveslist[]                                 ;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
   ask hives [ set hiveslist lput self hiveslist ] ;can probably delete these two lines. Leave them here for now though
-  ask hives [set hive-x xcor set hive-y ycor] ;trying to get hold of the patches co-ords that the hive is on, to use sprout
+
   ask hives
   [
+    let x hive-x
+    let y hive-y
     ask patch-at hive-x hive-y ;so that we can sprout from that patch
     [
       sprout-bees initial-bees-per-hive ;sprouts the amount of bees per hive from that patch
+      ask bees[set home-x x
+               set home-y y]
+      increment-bee-count initial-bees-per-hive
     ]
+      ask bees [setxy home-x + 1 home-y + 1] ;setting this to +1 temp shows what is happening.
   ]
+
   ask bees [set color yellow]
 end
 
@@ -62,6 +72,14 @@ to set-up-mites
 
 end
 
+
+to increment-bee-count [i]
+  set bee-count (bee-count + i)
+end
+
+to decrease-bee-count [i]
+  set bee-count (bee-count - i)
+end
 
 to go
 
@@ -72,9 +90,9 @@ GRAPHICS-WINDOW
 210
 10
 649
-470
+496
 16
-16
+17
 13.0
 1
 10
@@ -87,8 +105,8 @@ GRAPHICS-WINDOW
 1
 -16
 16
--16
-16
+-17
+17
 0
 0
 1
@@ -158,6 +176,17 @@ initial-bees-per-hive
 1
 NIL
 HORIZONTAL
+
+MONITOR
+3
+198
+81
+243
+bee count
+bee-count
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
