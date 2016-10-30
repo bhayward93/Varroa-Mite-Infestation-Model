@@ -4,9 +4,9 @@ breed [mites mite]
 breed [hives hive] ;Probably a better way to do this than creating a breed
 
 bees-own [home-x home-y] ;x and y bounds will be neccesary.
-queen-bees-own [hive] ;this needs to mirror bees-own, but add further variables.
+queen-bees-own [home-x home-y broodey] ;this needs to mirror bees-own, but add further variables.
 mites-own[]
-hives-own[hive-x hive-y]
+hives-own[is-alive]
 
 globals [hives-set bee-count]
 ;Buttons
@@ -34,37 +34,40 @@ to set-up-hives
   [
     set shape "circle"
     set color 25
-    ;let x random-pxcor
-    ;let y random-pycor
-    set hive-x random-pxcor
-    set hive-y random-pycor
-    setxy hive-x hive-y
-
-    ;ask patch x y [set pcolor 24]
-    ;This and the 'lets' up above set the patch behind the hive. have left this here because it may or may not be useful
+    setxy random-pxcor random-pycor
   ]
 end
 
 
 to set-up-bees
-  let hiveslist[]                                 ;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-  ask hives [ set hiveslist lput self hiveslist ] ;can probably delete these two lines. Leave them here for now though
 
-  ask hives
+  ask hives ;need to ask hives to get ahold of the px/pycor of the patch it rests on
   [
-    let x hive-x
-    let y hive-y
-    ask patch-at hive-x hive-y ;so that we can sprout from that patch
+    ask patch-at pxcor pycor ;so that we can sprout from that patch
     [
-      sprout-bees initial-bees-per-hive ;sprouts the amount of bees per hive from that patch
-      ask bees[set home-x x
-               set home-y y]
-      increment-bee-count initial-bees-per-hive
+      let py [pycor] of myself ;Get the patches px / pycors and lexically bind them.
+      let px [pxcor] of myself
+        sprout-bees initial-bees-per-hive ;sprouts the amount of bees per hive from that patch
+        [
+          set color 45 ;yellow
+          set shape "bug" ;looks somewhat like a bee
+          setxy px py ;sets their current xy
+          set home-x px ;sets there home-xy, so we can send them back home
+          set home-y py
+        ]
+        sprout-queen-bees 1
+        [
+          set color 47
+          set shape "bug"
+          setxy px py ;sets current xy
+          set home-x px ;sets home-xy, so we can send them back home
+          set home-y py
+        ]
     ]
-      ask bees [setxy home-x + 1 home-y + 1] ;setting this to +1 temp shows what is happening.
-  ]
+    increment-bee-count initial-bees-per-hive
+    ]
 
-  ask bees [set color yellow]
+
 end
 
 
@@ -72,18 +75,20 @@ to set-up-mites
 
 end
 
+;GO
+to go
 
+tick
+end
+
+;Utils/Other Functions
 to increment-bee-count [i]
   set bee-count (bee-count + i)
 end
 
+
 to decrease-bee-count [i]
   set bee-count (bee-count - i)
-end
-
-to go
-
-tick
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -171,7 +176,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 100
-4
+7
 1
 1
 NIL
