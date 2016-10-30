@@ -4,11 +4,11 @@ breed [mites mite]
 breed [hives hive] ;Probably a better way to do this than creating a breed
 
 bees-own [home-x home-y] ;x and y bounds will be neccesary.
-queen-bees-own [home-x home-y broodey] ;this needs to mirror bees-own, but add further variables.
-mites-own[]
+queen-bees-own [home-x home-y brood] ;this needs to mirror bees-own, but add further variables.
+mites-own[current-host]
 hives-own[is-alive]
 
-globals [hives-set bee-count]
+globals [hives-set bee-count mite-count]
 ;Buttons
 to reset
   clear-all
@@ -72,16 +72,52 @@ end
 
 
 to set-up-mites
+  if (initial-mites-per-bee > 0) ;if initial-mites-per-bee has a value
+  [
+    ask bees
+    [
+      let this-bee self ;storing this for setting current-host
+      ask patch-at pxcor pycor ;get the current patch so we can use sprout
+      [
+        let px [pxcor] of myself ;store the x/y co of the patch
+        let py [pycor] of myself
+        sprout-mites initial-mites-per-bee ;sprout new mites
+        [
+          setxy px py ;set the xy
+          set current-host this-bee ;links the mites to the bee.
+        ]
+      ]
+      increment-mite-count initial-mites-per-bee
+    ]
+  ]
+  if (initial-mites-per-hive > 0) ;if initial-bees-per-hive has a value
+  [
+    ask hives
+    [
+      ask patch-at pxcor pycor ;get the patch of the hive
+      [
+        let px [pxcor] of myself ;bind the x and y cor for later use
+        let py [pycor] of myself
+        sprout-mites initial-mites-per-hive ; sprout new mites
+        [
+          setxy px py ;set xy
+          set current-host one-of bees-here ;links a 'host' to the mite, randomly selecting a bee in the hive.
+        ] ;CURRENTLY DOES NOT EFFECT QUEEN BEES.
 
+      ]
+      increment-mite-count initial-mites-per-hive
+    ]
+  ]
 end
 
 ;GO
 to go
-
+reset-ticks
 tick
 end
 
 ;Utils/Other Functions
+
 to increment-bee-count [i]
   set bee-count (bee-count + i)
 end
@@ -89,6 +125,16 @@ end
 
 to decrease-bee-count [i]
   set bee-count (bee-count - i)
+end
+
+
+to increment-mite-count [i]
+  set mite-count (mite-count + i)
+end
+
+
+to decrease-mite-count [i]
+  set mite-count (mite-count - i)
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -119,10 +165,10 @@ ticks
 30.0
 
 BUTTON
-5
-81
-83
-114
+0
+148
+78
+181
 set up
 set-up
 NIL
@@ -136,10 +182,10 @@ NIL
 1
 
 BUTTON
-84
-81
-154
-114
+77
+148
+147
+181
 reset
 reset
 NIL
@@ -161,7 +207,7 @@ initial-hives
 initial-hives
 0
 100
-4
+2
 1
 1
 NIL
@@ -176,7 +222,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 100
-7
+4
 1
 1
 NIL
@@ -192,6 +238,83 @@ bee-count
 17
 1
 11
+
+SLIDER
+5
+83
+206
+116
+initial-mites-per-hive
+initial-mites-per-hive
+0
+100
+3
+1
+1
+NIL
+HORIZONTAL
+
+MONITOR
+83
+199
+165
+244
+mite count
+mite-count
+17
+1
+11
+
+SLIDER
+5
+115
+205
+148
+initial-mites-per-bee
+initial-mites-per-bee
+0
+100
+0
+1
+1
+NIL
+HORIZONTAL
+
+PLOT
+3
+243
+203
+393
+plot 1
+bee-count
+mite-count
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -1184463 true "" "plot count bees"
+"pen-1" 1.0 0 -2674135 true "" "plot count mites"
+
+BUTTON
+147
+148
+210
+181
+Go
+go
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
