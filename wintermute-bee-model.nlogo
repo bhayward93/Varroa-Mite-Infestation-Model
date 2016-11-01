@@ -1,15 +1,19 @@
 ; == BREEDS ==============================================================
+; NOTE - Inheritance does not appear to exist in NetLogo.
+; NOTE - May be a better way of handling hives than using turtles, but as
+;        of this moment, it has yet to be found.
 breed [workers worker]
 breed [broods brood]
-breed [queens queen] ;Note - Inheritance does not exist in netlogo
+breed [queens queen]
 breed [mites mite]
-breed [hives hive] ;Probably a better way to do this than creating a breed
+breed [hives hive]
 
 hives-own [
   hive-workers
   hive-queens
   hive-broods
   capacity
+  load
 ]
 
 queens-own [
@@ -72,7 +76,6 @@ to set-up-patches
 end
 ; -- END PATCHES ---------------------------------------------------------
 
-
 ; -- HIVES ---------------------------------------------------------------
 to set-up-hives
   create-hives initial-hives
@@ -84,41 +87,44 @@ to set-up-hives
 end
 ; -- END HIVES -----------------------------------------------------------
 
-
 ; -- BEES ----------------------------------------------------------------
 to set-up-bees
 
-  ask hives ;need to ask hives to get ahold of the px/pycor of the patch it rests on
+  ; Asking hives required in order to use the co-ordinates of the patch
+  ; on which it resides.
+  ask hives
   [
-
+    ; Required to pass into each bee's current-hive property.
     let this-hive self
 
-    ask patch-at pxcor pycor ;so that we can sprout from that patch
+    ask patch-at pxcor pycor
     [
-      let py [pycor] of myself ;Get the patches px / pycors and lexically bind them.
+      ; Get the patch's co-ordinates and lexically bind them.
+      let py [pycor] of myself
       let px [pxcor] of myself
 
-        sprout-workers initial-bees-per-hive ;sprouts the amount of bees per hive from that patch
-        [
-          set color 45 ;yellow
-          set shape "bug" ;looks somewhat like a bee
-          setxy px py ;sets their current xy
-          set current-hive this-hive
-        ]
+      ; Create an initial number of worker bees belonging to that hive.
+      sprout-workers initial-bees-per-hive
+      [
+        set color 45                  ; Yellow
+        set shape "bug"               ; Closest resemblance to a bee.
+        setxy px py                   ; Places them at this patch.
+        set current-hive this-hive    ; Binds them to this hive.
+      ]
 
-        sprout-queens 1
-        [
-          set color 47
-          set shape "bug"
-          setxy px py ;sets current xy
-          set current-hive this-hive
-
-          set capacity (capacity + 1)
-        ]
+      sprout-queens 1
+      [
+        set color 47                  ; Light Yellow
+        set shape "bug"               ; Closest resemblance to a bee.
+        setxy px py                   ; Places her at this patch.
+        set current-hive this-hive    ; Binds her to this hive.
+      ]
     ]
 
-    set capacity (capacity + initial-bees-per-hive + 1)
-    increment-bee-count (capacity)
+    ; Update the current load of the hive, and the total bee count across
+    ; the board, accordingly.
+    set load (load + initial-bees-per-hive + 1)
+    increment-bee-count (load)
 
     ]
 end
@@ -126,56 +132,35 @@ end
 
 ; -- MITES  --------------------------------------------------------------
 to set-up-mites
-
-  if (initial-mites-per-bee > 0) ;if initial-mites-per-bee has a value
+  if (initial-mites-per-bee > 0)
   [
 
     ask workers
     [
-      let this-worker self ;storing this for setting current-host
 
-      ask patch-at pxcor pycor ;get the current patch so we can use sprout
+      ; Required to pass into each mite's current-host property.
+      let this-worker self
+
+      ask patch-at pxcor pycor
       [
-        let px [pxcor] of myself ;store the x/y co of the patch
+        ; Get the patch's co-ordinates and lexically bind them.
+        let px [pxcor] of myself
         let py [pycor] of myself
 
-        sprout-mites initial-mites-per-bee ;sprout new mites
+        ; Spawn new mites.
+        sprout-mites initial-mites-per-bee
         [
-          setxy px py ;set the xy
-          set current-host this-worker ;links the mites to the bee.
+          setxy px py                      ; Places them at this patch.
+          set current-host this-worker     ; Latches the mite upon this bee.
         ]
       ]
 
+      ; Update the total mite count across the entire model.
       increment-mite-count initial-mites-per-bee
-
-    ]
-  ]
-
-  if (initial-mites-per-hive > 0) ;if initial-bees-per-hive has a value
-  [
-
-    ask hives
-    [
-
-      ask patch-at pxcor pycor ;get the patch of the hive
-      [
-        let px [pxcor] of myself ;bind the x and y cor for later use
-        let py [pycor] of myself
-
-        sprout-mites initial-mites-per-hive ; sprout new mites
-        [
-          setxy px py ;set xy
-          set current-host one-of workers-here ;links a 'host' to the mite, randomly selecting a bee in the hive.
-        ] ;CURRENTLY DOES NOT EFFECT QUEEN BEES.
-      ]
-
-      increment-mite-count initial-mites-per-hive
-
     ]
   ]
 end
 ; -- END MITES -----------------------------------------------------------
-
 ; == END INITIALISATION ==================================================
 
 
@@ -195,6 +180,7 @@ end
 to decrease-mite-count [i]
   set mite-count (mite-count - i)
 end
+; == END UTILS ===========================================================
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
