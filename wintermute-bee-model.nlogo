@@ -1,15 +1,50 @@
-breed [bees bee]
-breed [queen-bees queen-bee] ;Note - Inheritance does not exist in netlogo
+; == BREEDS ==============================================================
+breed [workers worker]
+breed [broods brood]
+breed [queens queen] ;Note - Inheritance does not exist in netlogo
 breed [mites mite]
 breed [hives hive] ;Probably a better way to do this than creating a breed
 
-bees-own [home-x home-y] ;x and y bounds will be neccesary.
-queen-bees-own [home-x home-y brood] ;this needs to mirror bees-own, but add further variables.
-mites-own[current-host]
-hives-own[is-alive]
+hives-own [
+  hive-workers
+  hive-queens
+  hive-broods
+  capacity
+]
 
-globals [hives-set bee-count mite-count]
-;Buttons
+queens-own [
+  max-lifespan
+  life-remaining
+  current-hive
+]
+
+workers-own [
+  max-lifespan
+  life-remaining
+  current-hive
+]
+
+broods-own [
+  gestation
+  life-remaining
+  current-hive
+]
+
+mites-own [
+  max-lifespan
+  current-host
+]
+; == END BREEDS ==========================================================
+
+; == GLOBALS =============================================================
+globals [
+  hives-set
+  bee-count
+  mite-count
+]
+; == END GLOBALS =========================================================
+
+; == BUTTONS =============================================================
 to reset
   clear-all
   ask patches [set pcolor 64]
@@ -23,12 +58,22 @@ to set-up
   set-up-mites
 end
 
-;Set-up
-to set-up-patches
-ask patches [set pcolor 64]
+;GO
+to go
+  reset-ticks
+  tick
 end
+; == END BUTTONS =========================================================
+
+; == INITIALISATION ======================================================
+; -- PATCHES -------------------------------------------------------------
+to set-up-patches
+  ask patches [set pcolor 64]
+end
+; -- END PATCHES ---------------------------------------------------------
 
 
+; -- HIVES ---------------------------------------------------------------
 to set-up-hives
   create-hives initial-hives
   [
@@ -37,101 +82,115 @@ to set-up-hives
     setxy random-pxcor random-pycor
   ]
 end
+; -- END HIVES -----------------------------------------------------------
 
 
+; -- BEES ----------------------------------------------------------------
 to set-up-bees
 
   ask hives ;need to ask hives to get ahold of the px/pycor of the patch it rests on
   [
+
+    let this-hive self
+
     ask patch-at pxcor pycor ;so that we can sprout from that patch
     [
       let py [pycor] of myself ;Get the patches px / pycors and lexically bind them.
       let px [pxcor] of myself
-        sprout-bees initial-bees-per-hive ;sprouts the amount of bees per hive from that patch
+
+        sprout-workers initial-bees-per-hive ;sprouts the amount of bees per hive from that patch
         [
           set color 45 ;yellow
           set shape "bug" ;looks somewhat like a bee
           setxy px py ;sets their current xy
-          set home-x px ;sets there home-xy, so we can send them back home
-          set home-y py
+          set current-hive this-hive
         ]
-        sprout-queen-bees 1
+
+        sprout-queens 1
         [
           set color 47
           set shape "bug"
           setxy px py ;sets current xy
-          set home-x px ;sets home-xy, so we can send them back home
-          set home-y py
+          set current-hive this-hive
+
+          set capacity (capacity + 1)
         ]
     ]
-    increment-bee-count initial-bees-per-hive
+
+    set capacity (capacity + initial-bees-per-hive + 1)
+    increment-bee-count (capacity)
+
     ]
-
-
 end
+; -- END BEES ------------------------------------------------------------
 
-
+; -- MITES  --------------------------------------------------------------
 to set-up-mites
+
   if (initial-mites-per-bee > 0) ;if initial-mites-per-bee has a value
   [
-    ask bees
+
+    ask workers
     [
-      let this-bee self ;storing this for setting current-host
+      let this-worker self ;storing this for setting current-host
+
       ask patch-at pxcor pycor ;get the current patch so we can use sprout
       [
         let px [pxcor] of myself ;store the x/y co of the patch
         let py [pycor] of myself
+
         sprout-mites initial-mites-per-bee ;sprout new mites
         [
           setxy px py ;set the xy
-          set current-host this-bee ;links the mites to the bee.
+          set current-host this-worker ;links the mites to the bee.
         ]
       ]
+
       increment-mite-count initial-mites-per-bee
+
     ]
   ]
+
   if (initial-mites-per-hive > 0) ;if initial-bees-per-hive has a value
   [
+
     ask hives
     [
+
       ask patch-at pxcor pycor ;get the patch of the hive
       [
         let px [pxcor] of myself ;bind the x and y cor for later use
         let py [pycor] of myself
+
         sprout-mites initial-mites-per-hive ; sprout new mites
         [
           setxy px py ;set xy
-          set current-host one-of bees-here ;links a 'host' to the mite, randomly selecting a bee in the hive.
+          set current-host one-of workers-here ;links a 'host' to the mite, randomly selecting a bee in the hive.
         ] ;CURRENTLY DOES NOT EFFECT QUEEN BEES.
-
       ]
+
       increment-mite-count initial-mites-per-hive
+
     ]
   ]
 end
+; -- END MITES -----------------------------------------------------------
 
-;GO
-to go
-reset-ticks
-tick
-end
+; == END INITIALISATION ==================================================
 
-;Utils/Other Functions
 
+; == UTILS ===============================================================
 to increment-bee-count [i]
   set bee-count (bee-count + i)
 end
-
 
 to decrease-bee-count [i]
   set bee-count (bee-count - i)
 end
 
-
 to increment-mite-count [i]
   set mite-count (mite-count + i)
 end
-
 
 to decrease-mite-count [i]
   set mite-count (mite-count - i)
