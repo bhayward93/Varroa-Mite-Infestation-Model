@@ -65,6 +65,13 @@ end
 ;GO
 to go
   reset-ticks
+
+  ask hives [
+    if(load >= capacity)[
+      swarm-bees load
+    ]
+  ]
+
   tick
 end
 ; == END BUTTONS =========================================================
@@ -163,6 +170,46 @@ end
 ; -- END MITES -----------------------------------------------------------
 ; == END INITIALISATION ==================================================
 
+; == ACTIONS =============================================================
+to swarm-bees [l]
+  ask patch-here
+  [
+    ask one-of neighbors4
+    [
+      if(count hives-here = 0)
+      [
+        ; Build a hive at this patch if it's empty.
+        sprout-hives 1
+        [
+          set shape "circle"
+          set color 25
+
+          let this-hive self
+        ]
+
+        ; Send 70% of the workers to the new hive.
+        ask n-of ((count l) * 0.7) l
+        [
+          set current-hive (one-of hives-here)
+        ]
+
+        ; Send a new queen to the hive (not technically accurate at the mo
+        ; as the swarm would be led by the old hive's queen instead).
+        sprout-queens 1
+        [
+          set color 47                           ; Light Yellow
+          set shape "bug"                        ; Closest resemblance to a bee.
+          setxy pxcor pycor                      ; Places her at this patch.
+          set current-hive (one-of hives-here)   ; Binds her to this hive.
+        ]
+
+        ; Up the bee count to accomodate the new queen.
+        increment-bee-count 1
+      ]
+    ]
+  ]
+end
+; == END ACTIONS =========================================================
 
 ; == UTILS ===============================================================
 to increment-bee-count [i]
@@ -283,21 +330,6 @@ bee-count
 17
 1
 11
-
-SLIDER
-5
-83
-206
-116
-initial-mites-per-hive
-initial-mites-per-hive
-0
-100
-3
-1
-1
-NIL
-HORIZONTAL
 
 MONITOR
 83
