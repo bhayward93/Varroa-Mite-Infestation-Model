@@ -52,6 +52,7 @@ globals [
 to reset
   clear-all
   ask patches [set pcolor 64]
+  reset-ticks
 end
 
 to set-up
@@ -64,12 +65,11 @@ end
 
 ;GO
 to go
-  reset-ticks
-
   ask hives [
     if(load >= capacity)[
       swarm-bees load
     ]
+   return-bees-to-home
   ]
 
   tick
@@ -171,11 +171,16 @@ end
 ; == END INITIALISATION ==================================================
 
 ; == ACTIONS =============================================================
-to swarm-bees [l]
+to swarm-bees [current-capacity]
   ask patch-here
   [
-    ask one-of neighbors4
+    let workers-on-this-patch workers-on self
+    let queen one-of queens-on myself
+
+    ask one-of neighbors
     [
+      ;let new-x pxcor
+      ;let new-y pycor
       if(count hives-here = 0)
       [
         ; Build a hive at this patch if it's empty.
@@ -183,14 +188,15 @@ to swarm-bees [l]
         [
           set shape "circle"
           set color 25
-
           let this-hive self
         ]
 
         ; Send 70% of the workers to the new hive.
-        ask n-of ((count l) * 0.7) l
+        ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
         [
           set current-hive (one-of hives-here)
+          ;set current-hive (hives-at new-x new-y)
+          ;Problem is here, need to set the bees X Y to the new patches
         ]
 
         ; Send a new queen to the hive (not technically accurate at the mo
@@ -212,6 +218,15 @@ end
 ; == END ACTIONS =========================================================
 
 ; == UTILS ===============================================================
+to return-bees-to-home
+  ask queens[
+    move-to current-hive
+  ]
+  ask workers[
+    move-to current-hive
+    ]
+end
+
 to increment-bee-count [i]
   set bee-count (bee-count + i)
 end
