@@ -22,8 +22,7 @@ to swarm-bees []
       [
         let new-x pxcor
         let new-y pycor
-        
-        ifelse(count hives-here = 0)
+        if(count hives-here = 0)
         [
           ; Build a hive at this patch if it's empty.
           sprout-hives 1
@@ -33,8 +32,6 @@ to swarm-bees []
             set capacity ((random (60 - 40)) + (40)) ; 60 and 40 are max and min loads  
             let this-hive self
           ]
-          
-          increment-hive-count 1
 
           ; Send 70% of the workers to the new hive.
           ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
@@ -73,13 +70,6 @@ to swarm-bees []
             move-to current-host
             ]
         ]
-        [
-          ;type self print " mass death!"
-          
-          ; Send 70% of the workers to their untimely demise.
-          ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
-          [kill-bee]
-        ]
       ]
     ]
   ]
@@ -113,13 +103,6 @@ to age-bee
   [kill-bee]
 end
 
-to age-mite
-  set life-remaining (life-remaining - 1)
-  
-  if(life-remaining <= 0)
-  [kill-mite]
-end
-
 to find-new-host[this-mite]
   ask this-mite
   [
@@ -134,7 +117,6 @@ end
 
 ; Birth bees (very placeholder-y)
 to bees-reproduce
-  let hive-load load
   ask queens[  
     let queen-x xcor
     let queen-y ycor
@@ -147,7 +129,7 @@ to bees-reproduce
         setxy queen-x queen-y         ; Places them at this patch.
         set max-lifespan 40
         set life-remaining max-lifespan
-        set current-hive hive         ; Binds them to this hive
+        set current-hive hive         ; Binds them to this hive  
       ]
         increment-bee-count 20
     ]
@@ -155,17 +137,16 @@ to bees-reproduce
 end
 
 to reproduce-mites
-  ask hives[
-    ask patch-here[
-      sprout-mites 1[
-        setxy pxcor pycor                      ; Places them at this patch.
-        set max-lifespan 40
-        set current-host one-of workers-here     ; Latches the mite upon this bee.
-      ]
-      
-      increment-mite-count 1
+ask hives[
+  ask patch-here[
+    sprout-mites 1[
+      setxy pxcor pycor                      ; Places them at this patch.
+      set max-lifespan 40
+      set current-host one-of workers-here     ; Latches the mite upon this bee.
     ]
     increment-mite-count 1
   ]
+]
+   
 end
 ; == END ACTIONS =========================================================
