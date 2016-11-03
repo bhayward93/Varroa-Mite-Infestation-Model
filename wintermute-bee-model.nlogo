@@ -10,15 +10,16 @@ __includes
 ; == GLOBALS =============================================================
 globals [
   hives-set
+  hive-count
   bee-count
   mite-count
 ]
 ; == END GLOBALS =========================================================
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
+229
 10
-649
+668
 496
 16
 17
@@ -145,9 +146,9 @@ HORIZONTAL
 
 PLOT
 3
-243
+321
 203
-393
+471
 Bees vs Mite Population
 bee-count
 mite-count
@@ -178,6 +179,17 @@ NIL
 NIL
 NIL
 1
+
+MONITOR
+168
+200
+225
+245
+hives
+hive-count
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

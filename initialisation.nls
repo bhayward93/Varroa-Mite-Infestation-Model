@@ -13,7 +13,10 @@ to set-up-hives
     set shape "circle"
     set color 25
     setxy random-pxcor random-pycor
+    set capacity 10
   ]
+  
+  increment-hive-count(initial-hives)
 end
 ; -- END HIVES -----------------------------------------------------------
 
