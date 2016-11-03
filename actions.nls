@@ -1,5 +1,13 @@
 ; == ACTIONS =============================================================
-to swarm-bees [current-capacity]
+to check-all-and-swarm
+  ask hives[
+    if (count (workers-on patch-here) > capacity - 1)[
+    swarm-bees
+    ]
+  ]
+end
+
+to swarm-bees []
   ask patch-here
   [
 
@@ -21,6 +29,7 @@ to swarm-bees [current-capacity]
           [
             set shape "circle"
             set color 25
+            set capacity ((random (60 - 40)) + (40)) ; 60 and 40 are max and min loads  
             let this-hive self
           ]
 
@@ -122,6 +131,7 @@ to bees-reproduce
         set life-remaining max-lifespan
         set current-hive hive         ; Binds them to this hive  
       ]
+        increment-bee-count 1
     ]
   ]
 end
@@ -134,6 +144,7 @@ ask hives[
       set max-lifespan 40
       set current-host one-of workers-here     ; Latches the mite upon this bee.
     ]
+    increment-mite-count 1
   ]
 ]
    

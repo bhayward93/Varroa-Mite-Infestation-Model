@@ -9,6 +9,7 @@ end
 to set-up-hives
   create-hives initial-hives
   [
+    set capacity (random (60 - 40)) + 40
     set shape "circle"
     set color 25
     setxy random-pxcor random-pycor

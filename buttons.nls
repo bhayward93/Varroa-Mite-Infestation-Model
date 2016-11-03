@@ -15,14 +15,11 @@ end
 
 ;GO
 to go
-  ask hives [
-    if(load >= capacity)[
-      swarm-bees load
-    ]
+    check-all-and-swarm
     bees-reproduce
     reproduce-mites
    ;return-bees-to-home
-  ]
+  
 
   ; Have the presence of the mites diminish the health of the bee they
   ; are latched upon.

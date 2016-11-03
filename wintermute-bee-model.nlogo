@@ -100,7 +100,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 100
-6
+92
 1
 1
 NIL
@@ -130,14 +130,14 @@ mite-count
 
 SLIDER
 5
-115
+82
 205
-148
+115
 initial-mites-per-bee
 initial-mites-per-bee
 0
 100
-1
+2
 1
 1
 NIL
