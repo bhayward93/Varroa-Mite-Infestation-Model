@@ -16,14 +16,22 @@ to decrease-mite-count [i]
   set mite-count (mite-count - i)
 end
 
+to increment-hive-count [i]
+  set hive-count (hive-count + i)
+end
+
+to decrease-hive-count [i]
+  set hive-count (hive-count - i)
+end
+
 to kill-bee
-  report-death
+  ;report-death
   decrease-bee-count 1
   die
 end
 
 to kill-mite
-  report-death
+  ;report-death
   decrease-mite-count 1
   die
 end

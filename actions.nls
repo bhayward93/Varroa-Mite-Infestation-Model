@@ -14,7 +14,8 @@ to swarm-bees [current-capacity]
       [
         let new-x pxcor
         let new-y pycor
-        if(count hives-here = 0)
+        
+        ifelse(count hives-here = 0)
         [
           ; Build a hive at this patch if it's empty.
           sprout-hives 1
@@ -23,6 +24,8 @@ to swarm-bees [current-capacity]
             set color 25
             let this-hive self
           ]
+          
+          increment-hive-count 1
 
           ; Send 70% of the workers to the new hive.
           ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
@@ -60,6 +63,13 @@ to swarm-bees [current-capacity]
             ]
             move-to current-host
             ]
+        ]
+        [
+          ;type self print " mass death!"
+          
+          ; Send 70% of the workers to their untimely demise.
+          ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
+          [kill-bee]
         ]
       ]
     ]
@@ -99,6 +109,7 @@ to age-mite
   
   if(life-remaining <= 0)
   [kill-mite]
+end
 
 to find-new-host[this-mite]
   ask this-mite
@@ -108,12 +119,13 @@ to find-new-host[this-mite]
       set current-host new-host
       move-to new-host
     ]
-    [die]
+    [kill-mite]
   ]
 end
 
 ; Birth bees (very placeholder-y)
 to bees-reproduce
+  let hive-load load
   ask queens[  
     let queen-x xcor
     let queen-y ycor
@@ -128,11 +140,11 @@ to bees-reproduce
         set life-remaining max-lifespan
         set current-hive hive         ; Binds them to this hive
       ]
+      
+      set hive-load (hive-load + 1)
+      increment-bee-count 1
     ]
   ]
-  
-  set load (load + initial-bees-per-hive + 1)
-  increment-bee-count 1
 end
 
 to reproduce-mites
@@ -143,9 +155,9 @@ to reproduce-mites
         set max-lifespan 40
         set current-host one-of workers-here     ; Latches the mite upon this bee.
       ]
+      
+      increment-mite-count 1
     ]
   ]
-  
-  increment-mite-count 1
 end
 ; == END ACTIONS =========================================================
