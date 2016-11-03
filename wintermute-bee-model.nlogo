@@ -26,6 +26,8 @@ workers-own [
   max-lifespan
   life-remaining
   current-hive
+  hive-x
+  hive-y
 ]
 
 broods-own [
@@ -69,7 +71,7 @@ to go
     if(load >= capacity)[
       swarm-bees load
     ]
-   return-bees-to-home
+   ;return-bees-to-home
   ]
 
   tick
@@ -175,12 +177,14 @@ to swarm-bees [current-capacity]
   ask patch-here
   [
     let workers-on-this-patch workers-on self
-    let queen one-of queens-on myself
+    let old-queen one-of queens-on myself
+    let old-x pxcor
+    let old-y pycor
 
     ask one-of neighbors
     [
-      ;let new-x pxcor
-      ;let new-y pycor
+      let new-x pxcor
+      let new-y pycor
       if(count hives-here = 0)
       [
         ; Build a hive at this patch if it's empty.
@@ -194,19 +198,27 @@ to swarm-bees [current-capacity]
         ; Send 70% of the workers to the new hive.
         ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
         [
-          set current-hive (one-of hives-here)
-          ;set current-hive (hives-at new-x new-y)
+
+          set current-hive (hives-at new-x new-y)
+          setxy new-x new-y
           ;Problem is here, need to set the bees X Y to the new patches
         ]
 
         ; Send a new queen to the hive (not technically accurate at the mo
         ; as the swarm would be led by the old hive's queen instead).
+        ask old-queen
+        [
+          set current-hive (hives-at new-x new-y)
+          setxy new-x new-y
+        ]
+
         sprout-queens 1
         [
           set color 47                           ; Light Yellow
           set shape "bug"                        ; Closest resemblance to a bee.
-          setxy pxcor pycor                      ; Places her at this patch.
-          set current-hive (one-of hives-here)   ; Binds her to this hive.
+          setxy old-x old-y                      ; Places her at this patch.
+          set current-hive (hives-at old-x old-y)   ; Binds her to this hive.
+          setxy old-x old-y
         ]
 
         ; Up the bee count to accomodate the new queen.
@@ -218,14 +230,6 @@ end
 ; == END ACTIONS =========================================================
 
 ; == UTILS ===============================================================
-to return-bees-to-home
-  ask queens[
-    move-to current-hive
-  ]
-  ask workers[
-    move-to current-hive
-    ]
-end
 
 to increment-bee-count [i]
   set bee-count (bee-count + i)
@@ -314,7 +318,7 @@ initial-hives
 initial-hives
 0
 100
-2
+1
 1
 1
 NIL
@@ -329,7 +333,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 100
-4
+10
 1
 1
 NIL
