@@ -79,7 +79,7 @@ to go
   ask mites [
     ifelse(current-host != nobody)
     [nibble-bee]
-    [kill-mite]
+    [find-new-host self]
   ]
 
   ask workers
@@ -192,57 +192,64 @@ end
 to swarm-bees [current-capacity]
   ask patch-here
   [
+
     let workers-on-this-patch workers-on self
-    let old-queen one-of queens-on myself
-    let old-x pxcor
-    let old-y pycor
-
-    ask one-of neighbors
+    if ((count workers-on-this-patch) > 6) ; 70% of workers
     [
-      let new-x pxcor
-      let new-y pycor
-      if(count hives-here = 0)
+      let old-queen one-of queens-on myself
+      let old-x pxcor
+      let old-y pycor
+
+      ask one-of neighbors
       [
-        ; Build a hive at this patch if it's empty.
-        sprout-hives 1
+        let new-x pxcor
+        let new-y pycor
+        if(count hives-here = 0)
         [
-          set shape "circle"
-          set color 25
-          let this-hive self
+          ; Build a hive at this patch if it's empty.
+          sprout-hives 1
+          [
+            set shape "circle"
+            set color 25
+            let this-hive self
+          ]
+
+          ; Send 70% of the workers to the new hive.
+          ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
+          [
+
+            set current-hive (hives-at new-x new-y)
+            setxy new-x new-y
+            ;Problem is here, need to set the bees X Y to the new patches
+          ]
+
+          ; Send a new queen to the hive (not technically accurate at the mo
+          ; as the swarm would be led by the old hive's queen instead).
+          ask old-queen
+          [
+            set current-hive (hives-at new-x new-y)
+            setxy new-x new-y
+          ]
+
+          sprout-queens 1
+          [
+            set color 47                           ; Light Yellow
+            set shape "bug"                        ; Closest resemblance to a bee.
+            setxy old-x old-y                      ; Places her at this patch.
+            set max-lifespan 40
+            set life-remaining max-lifespan
+            set current-hive (hives-at old-x old-y)   ; Binds her to this hive.
+          ]
+
+          ; Up the bee count to accomodate the new queen.
+          increment-bee-count 1
+          ask mites[move-to current-host]
         ]
-
-        ; Send 70% of the workers to the new hive.
-        ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
-        [
-
-          set current-hive (hives-at new-x new-y)
-          setxy new-x new-y
-          ;Problem is here, need to set the bees X Y to the new patches
-        ]
-
-        ; Send a new queen to the hive (not technically accurate at the mo
-        ; as the swarm would be led by the old hive's queen instead).
-        ask old-queen
-        [
-          set current-hive (hives-at new-x new-y)
-          setxy new-x new-y
-        ]
-
-        sprout-queens 1
-        [
-          set color 47                           ; Light Yellow
-          set shape "bug"                        ; Closest resemblance to a bee.
-          setxy old-x old-y                      ; Places her at this patch.
-          set max-lifespan 40
-          set life-remaining max-lifespan
-          set current-hive (hives-at old-x old-y)   ; Binds her to this hive.
-        ]
-
-        ; Up the bee count to accomodate the new queen.
-        increment-bee-count 1
       ]
     ]
   ]
+
+
 end
 
 ; If a mite is latched onto a bee, diminish the bee's life a little faster.
@@ -269,6 +276,18 @@ to age-bee
 
   if(life-remaining <= 0)
   [kill-bee]
+end
+
+to find-new-host[this-mite]
+  ask this-mite
+  [
+    ifelse (count workers-here != 0)[
+      let new-host (one-of workers-here)
+      set current-host new-host
+      move-to new-host
+    ]
+    [die]
+  ]
 end
 
 ; == END ACTIONS =========================================================
@@ -393,7 +412,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 100
-10
+100
 1
 1
 NIL
@@ -430,7 +449,7 @@ initial-mites-per-bee
 initial-mites-per-bee
 0
 100
-3
+1
 1
 1
 NIL
@@ -441,7 +460,7 @@ PLOT
 243
 203
 393
-plot 1
+Bees vs Mite Population
 bee-count
 mite-count
 0.0
