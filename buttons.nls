@@ -34,6 +34,9 @@ to go
 
   ask workers
   [age-bee]
+  
+  ask mites
+  [age-mite]
 
   tick
 end
