@@ -19,6 +19,8 @@ to go
     if(load >= capacity)[
       swarm-bees load
     ]
+    bees-reproduce
+    reproduce-mites
    ;return-bees-to-home
   ]
 

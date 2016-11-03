@@ -53,7 +53,13 @@ to swarm-bees [current-capacity]
 
           ; Up the bee count to accomodate the new queen.
           increment-bee-count 1
-          ask mites[move-to current-host]
+          ask mites[
+            if current-host = NOBODY
+            [
+              find-new-host self ;catches an error where the bee has no host
+            ]
+            move-to current-host
+            ]
         ]
       ]
     ]
@@ -118,5 +124,18 @@ to bees-reproduce
       ]
     ]
   ]
+end
+
+to reproduce-mites
+ask hives[
+  ask patch-here[
+    sprout-mites 1[
+      setxy pxcor pycor                      ; Places them at this patch.
+      set max-lifespan 40
+      set current-host one-of workers-here     ; Latches the mite upon this bee.
+    ]
+  ]
+]
+   
 end
 ; == END ACTIONS =========================================================
