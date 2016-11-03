@@ -74,6 +74,13 @@ to go
    ;return-bees-to-home
   ]
 
+  ; Have the presence of the mites diminish the health of the bee they
+  ; are latched upon.
+  ask mites [
+    ifelse(current-host != nobody)
+    [nibble-bee]
+    [kill-mite]
+  ]
   tick
 end
 ; == END BUTTONS =========================================================
@@ -118,6 +125,8 @@ to set-up-bees
         set color 45                  ; Yellow
         set shape "bug"               ; Closest resemblance to a bee.
         setxy px py                   ; Places them at this patch.
+        set max-lifespan 40
+        set life-remaining max-lifespan
         set current-hive this-hive    ; Binds them to this hive.
       ]
 
@@ -126,6 +135,8 @@ to set-up-bees
         set color 47                  ; Light Yellow
         set shape "bug"               ; Closest resemblance to a bee.
         setxy px py                   ; Places her at this patch.
+        set max-lifespan 40
+        set life-remaining max-lifespan
         set current-hive this-hive    ; Binds her to this hive.
       ]
     ]
@@ -160,6 +171,7 @@ to set-up-mites
         sprout-mites initial-mites-per-bee
         [
           setxy px py                      ; Places them at this patch.
+          set max-lifespan 40
           set current-host this-worker     ; Latches the mite upon this bee.
         ]
       ]
@@ -217,8 +229,9 @@ to swarm-bees [current-capacity]
           set color 47                           ; Light Yellow
           set shape "bug"                        ; Closest resemblance to a bee.
           setxy old-x old-y                      ; Places her at this patch.
+          set max-lifespan 40
+          set life-remaining max-lifespan
           set current-hive (hives-at old-x old-y)   ; Binds her to this hive.
-          setxy old-x old-y
         ]
 
         ; Up the bee count to accomodate the new queen.
@@ -226,6 +239,23 @@ to swarm-bees [current-capacity]
       ]
     ]
   ]
+end
+
+to nibble-bee
+  ask current-host
+  [
+    ; Reduce the bee's remaining life down by 5 (temp value)
+    set life-remaining (life-remaining - 5)
+
+    ; If the mite has drained too much the bee will die.
+    if(life-remaining <= 0)
+    [kill-bee]
+  ]
+
+  ; When the bee dies, the mite is taken with it.
+  ; (Not accurate right now)
+  if(current-host = nobody)
+  [kill-mite]
 end
 ; == END ACTIONS =========================================================
 
@@ -245,6 +275,22 @@ end
 
 to decrease-mite-count [i]
   set mite-count (mite-count - i)
+end
+
+to kill-bee
+  report-death
+  decrease-bee-count 1
+  die
+end
+
+to kill-mite
+  report-death
+  decrease-mite-count 1
+  die
+end
+
+to report-death
+  type self print " has died!"
 end
 ; == END UTILS ===========================================================
 @#$#@#$#@
@@ -370,7 +416,7 @@ initial-mites-per-bee
 initial-mites-per-bee
 0
 100
-0
+3
 1
 1
 NIL
