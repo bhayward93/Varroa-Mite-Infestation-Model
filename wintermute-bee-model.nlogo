@@ -81,6 +81,10 @@ to go
     [nibble-bee]
     [kill-mite]
   ]
+
+  ask workers
+  [age-bee]
+
   tick
 end
 ; == END BUTTONS =========================================================
@@ -241,6 +245,7 @@ to swarm-bees [current-capacity]
   ]
 end
 
+; If a mite is latched onto a bee, diminish the bee's life a little faster.
 to nibble-bee
   ask current-host
   [
@@ -257,6 +262,15 @@ to nibble-bee
   if(current-host = nobody)
   [kill-mite]
 end
+
+; Nudge the bee one week toward its expected life expectancy.
+to age-bee
+  set life-remaining (life-remaining - 1)
+
+  if(life-remaining <= 0)
+  [kill-bee]
+end
+
 ; == END ACTIONS =========================================================
 
 ; == UTILS ===============================================================
