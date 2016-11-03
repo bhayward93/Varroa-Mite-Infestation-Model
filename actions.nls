@@ -100,4 +100,23 @@ to find-new-host[this-mite]
   ]
 end
 
+; Birth bees (very placeholder-y)
+to bees-reproduce
+  ask queens[  
+    let queen-x xcor
+    let queen-y ycor
+    let hive current-hive
+    ask patch-here
+    [
+      sprout-workers 1[
+        set color 45                  ; Yellow
+        set shape "bug"               ; Closest resemblance to a bee.
+        setxy queen-x queen-y         ; Places them at this patch.
+        set max-lifespan 40
+        set life-remaining max-lifespan
+        set current-hive hive         ; Binds them to this hive  
+      ]
+    ]
+  ]
+end
 ; == END ACTIONS =========================================================
