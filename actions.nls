@@ -1,0 +1,103 @@
+; == ACTIONS =============================================================
+to swarm-bees [current-capacity]
+  ask patch-here
+  [
+
+    let workers-on-this-patch workers-on self
+    if ((count workers-on-this-patch) > 6) ; 70% of workers
+    [
+      let old-queen one-of queens-on myself
+      let old-x pxcor
+      let old-y pycor
+
+      ask one-of neighbors
+      [
+        let new-x pxcor
+        let new-y pycor
+        if(count hives-here = 0)
+        [
+          ; Build a hive at this patch if it's empty.
+          sprout-hives 1
+          [
+            set shape "circle"
+            set color 25
+            let this-hive self
+          ]
+
+          ; Send 70% of the workers to the new hive.
+          ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
+          [
+
+            set current-hive (hives-at new-x new-y)
+            setxy new-x new-y
+            ;Problem is here, need to set the bees X Y to the new patches
+          ]
+
+          ; Send a new queen to the hive (not technically accurate at the mo
+          ; as the swarm would be led by the old hive's queen instead).
+          ask old-queen
+          [
+            set current-hive (hives-at new-x new-y)
+            setxy new-x new-y
+          ]
+
+          sprout-queens 1
+          [
+            set color 47                           ; Light Yellow
+            set shape "bug"                        ; Closest resemblance to a bee.
+            setxy old-x old-y                      ; Places her at this patch.
+            set max-lifespan 40
+            set life-remaining max-lifespan
+            set current-hive (hives-at old-x old-y)   ; Binds her to this hive.
+          ]
+
+          ; Up the bee count to accomodate the new queen.
+          increment-bee-count 1
+          ask mites[move-to current-host]
+        ]
+      ]
+    ]
+  ]
+
+
+end
+
+; If a mite is latched onto a bee, diminish the bee's life a little faster.
+to nibble-bee
+  ask current-host
+  [
+    ; Reduce the bee's remaining life down by 5 (temp value)
+    set life-remaining (life-remaining - 5)
+
+    ; If the mite has drained too much the bee will die.
+    if(life-remaining <= 0)
+    [kill-bee]
+  ]
+
+  ; When the bee dies, the mite is taken with it.
+  ; (Not accurate right now)
+  if(current-host = nobody)
+  [kill-mite]
+end
+
+; Nudge the bee one week toward its expected life expectancy.
+to age-bee
+  set life-remaining (life-remaining - 1)
+
+  if(life-remaining <= 0)
+  [kill-bee]
+end
+
+to find-new-host[this-mite]
+  ask this-mite
+  [
+    ifelse (count workers-here != 0)[
+      let new-host (one-of workers-here)
+      set current-host new-host
+      move-to new-host
+    ]
+    [die]
+  ]
+end
+
+; == END ACTIONS =========================================================

@@ -1,0 +1,98 @@
+; == INITIALISATION ======================================================
+; -- PATCHES -------------------------------------------------------------
+to set-up-patches
+  ask patches [set pcolor 64]
+end
+; -- END PATCHES ---------------------------------------------------------
+
+; -- HIVES ---------------------------------------------------------------
+to set-up-hives
+  create-hives initial-hives
+  [
+    set shape "circle"
+    set color 25
+    setxy random-pxcor random-pycor
+  ]
+end
+; -- END HIVES -----------------------------------------------------------
+
+; -- BEES ----------------------------------------------------------------
+to set-up-bees
+
+  ; Asking hives required in order to use the co-ordinates of the patch
+  ; on which it resides.
+  ask hives
+  [
+    ; Required to pass into each bee's current-hive property.
+    let this-hive self
+
+    ask patch-at pxcor pycor
+    [
+      ; Get the patch's co-ordinates and lexically bind them.
+      let py [pycor] of myself
+      let px [pxcor] of myself
+
+      ; Create an initial number of worker bees belonging to that hive.
+      sprout-workers initial-bees-per-hive
+      [
+        set color 45                  ; Yellow
+        set shape "bug"               ; Closest resemblance to a bee.
+        setxy px py                   ; Places them at this patch.
+        set max-lifespan 40
+        set life-remaining max-lifespan
+        set current-hive this-hive    ; Binds them to this hive.
+      ]
+
+      sprout-queens 1
+      [
+        set color 47                  ; Light Yellow
+        set shape "bug"               ; Closest resemblance to a bee.
+        setxy px py                   ; Places her at this patch.
+        set max-lifespan 40
+        set life-remaining max-lifespan
+        set current-hive this-hive    ; Binds her to this hive.
+      ]
+    ]
+
+    ; Update the current load of the hive, and the total bee count across
+    ; the board, accordingly.
+    set load (load + initial-bees-per-hive + 1)
+    increment-bee-count (load)
+
+    ]
+end
+; -- END BEES ------------------------------------------------------------
+
+; -- MITES  --------------------------------------------------------------
+to set-up-mites
+  if (initial-mites-per-bee > 0)
+  [
+
+    ask workers
+    [
+
+      ; Required to pass into each mite's current-host property.
+      let this-worker self
+
+      ask patch-at pxcor pycor
+      [
+        ; Get the patch's co-ordinates and lexically bind them.
+        let px [pxcor] of myself
+        let py [pycor] of myself
+
+        ; Spawn new mites.
+        sprout-mites initial-mites-per-bee
+        [
+          setxy px py                      ; Places them at this patch.
+          set max-lifespan 40
+          set current-host this-worker     ; Latches the mite upon this bee.
+        ]
+      ]
+
+      ; Update the total mite count across the entire model.
+      increment-mite-count initial-mites-per-bee
+    ]
+  ]
+end
+; -- END MITES -----------------------------------------------------------
+; == END INITIALISATION ==================================================

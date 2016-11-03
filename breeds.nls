@@ -1,0 +1,43 @@
+; == BREEDS ==============================================================
+; NOTE - Inheritance does not appear to exist in NetLogo.
+; NOTE - May be a better way of handling hives than using turtles, but as
+;        of this moment, it has yet to be found.
+breed [workers worker]
+breed [broods brood]
+breed [queens queen]
+breed [mites mite]
+breed [hives hive]
+
+hives-own [
+  hive-workers
+  hive-queens
+  hive-broods
+  capacity
+  load
+]
+
+queens-own [
+  max-lifespan
+  life-remaining
+  current-hive
+]
+
+workers-own [
+  max-lifespan
+  life-remaining
+  current-hive
+  hive-x
+  hive-y
+]
+
+broods-own [
+  gestation
+  life-remaining
+  current-hive
+]
+
+mites-own [
+  max-lifespan
+  current-host
+]
+; == END BREEDS ==========================================================

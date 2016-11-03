@@ -1,0 +1,34 @@
+; == UTILS ===============================================================
+
+to increment-bee-count [i]
+  set bee-count (bee-count + i)
+end
+
+to decrease-bee-count [i]
+  set bee-count (bee-count - i)
+end
+
+to increment-mite-count [i]
+  set mite-count (mite-count + i)
+end
+
+to decrease-mite-count [i]
+  set mite-count (mite-count - i)
+end
+
+to kill-bee
+  report-death
+  decrease-bee-count 1
+  die
+end
+
+to kill-mite
+  report-death
+  decrease-mite-count 1
+  die
+end
+
+to report-death
+  type self print " has died!"
+end
+; == END UTILS ===========================================================

@@ -1,0 +1,38 @@
+; == BUTTONS =============================================================
+to reset
+  clear-all
+  ask patches [set pcolor 64]
+  reset-ticks
+end
+
+to set-up
+  reset
+  set-up-patches
+  set-up-hives
+  set-up-bees
+  set-up-mites
+end
+
+;GO
+to go
+  ask hives [
+    if(load >= capacity)[
+      swarm-bees load
+    ]
+   ;return-bees-to-home
+  ]
+
+  ; Have the presence of the mites diminish the health of the bee they
+  ; are latched upon.
+  ask mites [
+    ifelse(current-host != nobody)
+    [nibble-bee]
+    [find-new-host self]
+  ]
+
+  ask workers
+  [age-bee]
+
+  tick
+end
+; == END BUTTONS =========================================================
