@@ -111,7 +111,7 @@ to find-new-host[this-mite]
       set current-host new-host
       move-to new-host
     ]
-    [die]
+    [kill-mite]
   ]
 end
 
@@ -123,7 +123,7 @@ to bees-reproduce
     let hive current-hive
     ask patch-here
     [
-      sprout-workers 1[
+      sprout-workers 2[
         set color 45                  ; Yellow
         set shape "bug"               ; Closest resemblance to a bee.
         setxy queen-x queen-y         ; Places them at this patch.
@@ -131,7 +131,7 @@ to bees-reproduce
         set life-remaining max-lifespan
         set current-hive hive         ; Binds them to this hive  
       ]
-        increment-bee-count 1
+        increment-bee-count 20
     ]
   ]
 end
