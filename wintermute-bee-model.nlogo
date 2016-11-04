@@ -179,6 +179,21 @@ NIL
 NIL
 1
 
+SLIDER
+7
+116
+179
+149
+hive-capacity-slider
+hive-capacity-slider
+0
+100
+13
+1
+1
+NIL
+HORIZONTAL
+
 @#$#@#$#@
 ## WHAT IS IT?
 

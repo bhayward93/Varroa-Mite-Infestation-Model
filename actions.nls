@@ -29,7 +29,9 @@ to swarm-bees []
           [
             set shape "circle"
             set color 25
-            set capacity ((random (60 - 40)) + (40)) ; 60 and 40 are max and min loads  
+            ifelse hive-capacity-slider = 0
+            [set capacity (random (60 - 40)) + 40]
+            [set capacity hive-capacity-slider]
             let this-hive self
           ]
 
@@ -131,7 +133,7 @@ to bees-reproduce
         set life-remaining max-lifespan
         set current-hive hive         ; Binds them to this hive  
       ]
-        increment-bee-count 20
+        increment-bee-count 2
     ]
   ]
 end
