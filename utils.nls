@@ -28,7 +28,32 @@ to kill-mite
   die
 end
 
+to report-life-remaining
+  type self print life-remaining
+end
+
+to report-hive-coord-y
+  type self print pycor 
+end
+
 to report-death
-  type self print " has died!"
+  ;type self print " has died!"
+end
+
+to report-hive-capacity
+  type self print capacity
+end
+to set-max-lifespan[this-worker]
+
+    ask current-hive[
+      let cap capacity
+      
+      ask this-worker[
+      ifelse(cap > 50)
+        [set max-lifespan 22.5]
+        [set max-lifespan 26.5]
+      ]
+    ]
+  
 end
 ; == END UTILS ===========================================================

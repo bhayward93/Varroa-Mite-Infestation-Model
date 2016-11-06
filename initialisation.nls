@@ -42,9 +42,9 @@ to set-up-bees
         set color 45                  ; Yellow
         set shape "bug"               ; Closest resemblance to a bee.
         setxy px py                   ; Places them at this patch.
-        set max-lifespan 40
-        set life-remaining max-lifespan
         set current-hive this-hive    ; Binds them to this hive.
+        set-max-lifespan self
+        set life-remaining max-lifespan
       ]
 
       sprout-queens 1

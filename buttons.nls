@@ -18,7 +18,8 @@ to go
     check-all-and-swarm
     bees-reproduce
     reproduce-mites
-   ;return-bees-to-home
+ask hives[report-hive-capacity]
+
   
 
   ; Have the presence of the mites diminish the health of the bee they

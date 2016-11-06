@@ -17,6 +17,7 @@ to swarm-bees []
       let old-queen one-of queens-on myself
       let old-x pxcor
       let old-y pycor
+      let old-hive one-of hives-on myself
 
       ask one-of neighbors
       [
@@ -34,13 +35,16 @@ to swarm-bees []
             [set capacity hive-capacity-slider]
             let this-hive self
           ]
+        let new-hive one-of hives-on self
 
           ; Send 70% of the workers to the new hive.
           ask n-of ((count workers-on-this-patch) * 0.7) workers-on-this-patch
           [
-
-            set current-hive (hives-at new-x new-y)
+            let life-lost (max-lifespan -  life-remaining)
+            set current-hive new-hive
             setxy new-x new-y
+            set-max-lifespan self
+            set life-remaining (max-lifespan - life-lost)
             ;Problem is here, need to set the bees X Y to the new patches
           ]
 
@@ -48,7 +52,7 @@ to swarm-bees []
           ; as the swarm would be led by the old hive's queen instead).
           ask old-queen
           [
-            set current-hive (hives-at new-x new-y)
+            set current-hive (new-hive)
             setxy new-x new-y
           ]
 
@@ -59,7 +63,7 @@ to swarm-bees []
             setxy old-x old-y                      ; Places her at this patch.
             set max-lifespan 40
             set life-remaining max-lifespan
-            set current-hive (hives-at old-x old-y)   ; Binds her to this hive.
+            set current-hive (old-hive)   ; Binds her to this hive.
           ]
 
           ; Up the bee count to accomodate the new queen.
@@ -125,15 +129,16 @@ to bees-reproduce
     let hive current-hive
     ask patch-here
     [
-      sprout-workers 2[
+      sprout-workers 20[
         set color 45                  ; Yellow
         set shape "bug"               ; Closest resemblance to a bee.
         setxy queen-x queen-y         ; Places them at this patch.
-        set max-lifespan 40
-        set life-remaining max-lifespan
         set current-hive hive         ; Binds them to this hive  
+        set-max-lifespan self
+        set life-remaining max-lifespan
       ]
-        increment-bee-count 2
+        increment-bee-count 20
+
     ]
   ]
 end
