@@ -27,7 +27,8 @@ ask hives[report-hive-capacity]
   ask mites [
     ifelse(current-host != nobody)
     [nibble-bee]
-    [find-new-host self]
+    [find-new-host self
+      nibble-bee]
   ]
 
   ask workers

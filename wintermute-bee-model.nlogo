@@ -100,7 +100,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 100
-30
+62
 1
 1
 NIL

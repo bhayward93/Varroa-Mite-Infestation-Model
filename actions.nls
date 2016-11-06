@@ -8,6 +8,8 @@ to check-all-and-swarm
 end
 
 to swarm-bees []
+  
+
   ask patch-here
   [
 
@@ -18,8 +20,18 @@ to swarm-bees []
       let old-x pxcor
       let old-y pycor
       let old-hive one-of hives-on myself
-
-      ask one-of neighbors
+      
+      let next-patch one-of neighbors
+      if (count hives-on next-patch) > 0
+      [ 
+        ask other patches
+        [
+          if(not any? hives-here)
+          [set next-patch self]
+        ]
+      ]
+      
+      ask next-patch
       [
         let new-x pxcor
         let new-y pycor
@@ -129,7 +141,7 @@ to bees-reproduce
     let hive current-hive
     ask patch-here
     [
-      sprout-workers 20[
+      sprout-workers 3[
         set color 45                  ; Yellow
         set shape "bug"               ; Closest resemblance to a bee.
         setxy queen-x queen-y         ; Places them at this patch.
@@ -137,7 +149,7 @@ to bees-reproduce
         set-max-lifespan self
         set life-remaining max-lifespan
       ]
-        increment-bee-count 20
+        increment-bee-count 3
 
     ]
   ]
