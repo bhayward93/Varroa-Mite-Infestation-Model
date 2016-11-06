@@ -15,10 +15,17 @@ end
 
 ;GO
 to go
+;    ask hives[
+;      if (count workers-here = 0)
+;      [ask self 
+;        [die]
+;       ask queens-here
+;       [die]
+;      ]
+;      ]
     check-all-and-swarm
     bees-reproduce
     reproduce-mites
-ask hives[report-hive-capacity]
 
   
 
