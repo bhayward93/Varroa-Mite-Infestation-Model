@@ -1,13 +1,10 @@
 ; == GENERAL =============================================================
+; Report an agent's remaining life.
 to report-life-remaining
   type self print life-remaining
 end
 
-to report-hive-coord-y
-  type self print pycor 
-end
-
-
+; Report if something died.
 to report-death
   ;type self print " has died!"
 end

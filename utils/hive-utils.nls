@@ -16,4 +16,9 @@ end
 to report-hive-capacity
   type self print capacity
 end
+
+; Report a hive's y co-ordinates.
+to report-hive-coord-y
+  type self print pycor 
+end
 ; == END HIVES ===========================================================
