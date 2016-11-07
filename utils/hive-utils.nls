@@ -1,0 +1,19 @@
+; == HIVES ===============================================================
+to build-hives [q]
+  sprout-hives q
+  [
+    set shape "circle"
+    set color 25
+    
+    ifelse hive-capacity-slider = 0
+    [set capacity (random (60 - 40)) + 40]
+    [set capacity hive-capacity-slider]
+    
+    let this-hive self
+  ]
+end
+
+to report-hive-capacity
+  type self print capacity
+end
+; == END HIVES ===========================================================

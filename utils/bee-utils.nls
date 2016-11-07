@@ -1,0 +1,81 @@
+; == BEES ================================================================
+; Reduce a bee's life by a secified number of weeks.
+to reduce-bee-life [i]
+  set life-remaining (life-remaining - i)
+end
+
+; Kill a bee.
+to kill-bee
+  report-death
+  die
+end
+
+; Spawn a specified number of worker bees at a hive.
+to birth-workers [q x y h]
+  sprout-workers q
+  [
+        set color 45                  ; Yellow
+        set shape "bug"               ; Closest resemblance to a bee.
+        setxy x y                     ; Places them at this patch.
+        set current-hive h            ; Binds them to this hive  
+        set-max-lifespan self
+        set life-remaining max-lifespan
+  ]
+end
+
+; Relocate a percentage of worker bees to a new hive.
+to move-workers [p w x y h]
+  ask n-of ((count w) * p) w
+  [
+    let life-lost (max-lifespan - life-remaining)
+    set current-hive h
+    setxy x y
+    set-max-lifespan self
+    set life-remaining (max-lifespan - life-lost)
+    ;Problem is here, need to set the bees X Y to the new patches
+  ]
+end
+
+; Spawn a specified number of queen bees at a hive.
+to birth-queens [q x y h]
+  sprout-queens q
+  [
+    set color 47                           ; Light Yellow
+    set shape "bug"                        ; Closest resemblance to a bee.
+    setxy x y                              ; Places her at this patch.
+    set max-lifespan 40
+    set life-remaining max-lifespan
+    set current-hive h                     ; Binds her to this hive.
+  ]
+end
+
+; Relocate a queen bee to a new hive.
+to move-queen [q x y h]
+  ask q
+  [
+    set current-hive h
+    setxy x y
+  ]
+end
+
+; ???????????????
+to set-max-lifespan[this-worker]
+    ask current-hive[
+      let cap capacity
+      
+      ask this-worker[
+        ifelse(cap > 50)
+        [set max-lifespan 22.5]
+        [set max-lifespan 26.5]
+      ]
+    ]
+end
+
+; Nudge the bee one week toward its expected life expectancy.
+to age-bee
+  reduce-bee-life 1
+  
+  if(life-remaining <= 0)
+  [kill-bee]
+end
+; == END BEES ============================================================

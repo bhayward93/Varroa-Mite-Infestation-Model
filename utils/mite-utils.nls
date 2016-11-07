@@ -1,0 +1,44 @@
+; == MITES ===============================================================
+to birth-mites [q x y h]
+  sprout-mites q[
+      setxy x y                                ; Places them at this patch.
+      set max-lifespan 40
+      set current-host h                       ; Latches the mite upon this bee.
+    ]
+end
+
+to find-new-host[this-mite]
+  ask this-mite
+  [
+    ifelse (count workers-here != 0)[
+      let new-host (one-of workers-here)
+      set current-host new-host
+      move-to new-host
+    ]
+    [kill-mite]
+  ]
+end
+
+; If a mite is latched onto a bee, diminish the bee's life a little faster.
+to nibble-bee
+  ask current-host
+  [
+    ; Reduce the bee's remaining life down by 5 (temp value)
+    reduce-bee-life mite-lifespan-impact
+
+    ; If the mite has drained too much the bee will die.
+    if(life-remaining <= 0)
+    [kill-bee]
+  ]
+
+  ; When the bee dies, the mite is taken with it.
+  ; (Not accurate right now)
+  if(current-host = nobody)
+  [kill-mite]
+end
+
+to kill-mite
+  report-death
+  die
+end
+; == END MITES ===========================================================

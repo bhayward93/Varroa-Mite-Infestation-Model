@@ -1,0 +1,14 @@
+; == GENERAL =============================================================
+to report-life-remaining
+  type self print life-remaining
+end
+
+to report-hive-coord-y
+  type self print pycor 
+end
+
+
+to report-death
+  ;type self print " has died!"
+end
+; == END GENERAL =========================================================

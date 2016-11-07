@@ -4,7 +4,10 @@ __includes
   "buttons.nls"
   "initialisation.nls"
   "actions.nls"
-  "utils.nls"
+  "utils/bee-utils.nls"
+  "utils/mite-utils.nls"
+  "utils/hive-utils.nls"
+  "utils/general-utils.nls"
 ]
 
 ; == GLOBALS =============================================================
