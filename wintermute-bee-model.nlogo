@@ -16,9 +16,9 @@ globals [
 ; == END GLOBALS =========================================================
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
+390
 10
-649
+829
 496
 16
 17
@@ -43,10 +43,10 @@ Week
 30.0
 
 BUTTON
-0
-148
+10
+45
+88
 78
-181
 set up
 set-up
 NIL
@@ -60,10 +60,10 @@ NIL
 1
 
 BUTTON
-77
-148
-147
-181
+10
+10
+80
+43
 reset
 reset
 NIL
@@ -77,10 +77,10 @@ NIL
 1
 
 SLIDER
-6
-17
-178
-50
+135
+10
+312
+43
 initial-hives
 initial-hives
 0
@@ -88,14 +88,14 @@ initial-hives
 1
 1
 1
-NIL
+Hives
 HORIZONTAL
 
 SLIDER
-5
-50
-202
-83
+135
+45
+372
+78
 initial-bees-per-hive
 initial-bees-per-hive
 0
@@ -103,36 +103,36 @@ initial-bees-per-hive
 50
 1
 1
-NIL
+Bees
 HORIZONTAL
 
 MONITOR
-3
-198
-81
-243
+5
+210
+83
+255
 bee count
-bee-count
+(count workers + count queens)
 17
 1
 11
 
 MONITOR
-83
-199
-165
-244
+85
+210
+167
+255
 mite count
-mite-count
+count mites
 17
 1
 11
 
 SLIDER
-5
-82
-205
-115
+135
+80
+377
+113
 initial-mites-per-bee
 initial-mites-per-bee
 0
@@ -140,33 +140,33 @@ initial-mites-per-bee
 0
 1
 1
-NIL
+Mites
 HORIZONTAL
 
 PLOT
-3
-243
-203
-393
+5
+260
+385
+495
 Bees vs Mite Population
-bee-count
-mite-count
+Weeks
+Counts
 0.0
 10.0
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -1184463 true "" "plot count bees"
-"pen-1" 1.0 0 -2674135 true "" "plot count mites"
+"mites" 1.0 0 -5298144 true "" "plot count mites"
+"bees" 1.0 0 -4079321 true "" "plot (count workers + count queens)"
 
 BUTTON
-147
-148
-210
-181
+10
+80
+73
+113
 Go
 go
 T
@@ -180,10 +180,10 @@ NIL
 1
 
 SLIDER
-7
-116
-179
-149
+135
+150
+367
+183
 hive-capacity-slider
 hive-capacity-slider
 0
@@ -191,7 +191,22 @@ hive-capacity-slider
 0
 1
 1
-NIL
+Bees
+HORIZONTAL
+
+SLIDER
+135
+115
+387
+148
+mite-lifespan-impact
+mite-lifespan-impact
+0
+70
+5
+1
+1
+Weeks
 HORIZONTAL
 
 @#$#@#$#@
@@ -541,6 +556,28 @@ NetLogo 5.3.1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="experiment" repetitions="1" runMetricsEveryStep="true">
+    <setup>reset
+set-up</setup>
+    <go>go</go>
+    <timeLimit steps="52"/>
+    <metric>count workers</metric>
+    <metric>count mites</metric>
+    <enumeratedValueSet variable="hive-capacity-slider">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-hives">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-bees-per-hive">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-bee">
+      <value value="0"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
@@ -555,5 +592,5 @@ Line -7500403 true 150 150 90 180
 Line -7500403 true 150 150 210 180
 
 @#$#@#$#@
-0
+1
 @#$#@#$#@

@@ -9,6 +9,10 @@ to decrease-bee-count [i]
   set bee-count (bee-count - i)
 end
 
+to reduce-bee-life [i]
+  set life-remaining (life-remaining - i)
+end
+
 to increment-mite-count [i]
   set mite-count (mite-count + i)
 end

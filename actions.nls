@@ -100,7 +100,7 @@ to nibble-bee
   ask current-host
   [
     ; Reduce the bee's remaining life down by 5 (temp value)
-    set life-remaining (life-remaining - 5)
+    reduce-bee-life mite-lifespan-impact
 
     ; If the mite has drained too much the bee will die.
     if(life-remaining <= 0)
