@@ -10,8 +10,6 @@ __includes
 ; == GLOBALS =============================================================
 globals [
   hives-set
-  bee-count
-  mite-count
 ]
 ; == END GLOBALS =========================================================
 @#$#@#$#@
@@ -100,7 +98,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 100
-50
+10
 1
 1
 Bees
@@ -188,7 +186,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 100
-0
+50
 1
 1
 Bees
@@ -203,7 +201,7 @@ mite-lifespan-impact
 mite-lifespan-impact
 0
 70
-5
+1
 1
 1
 Weeks

@@ -1,7 +1,7 @@
 ; == BUTTONS =============================================================
 to reset
   clear-all
-  ask patches [set pcolor 64]
+  ask patches [set pcolor 62]
   reset-ticks
 end
 
@@ -15,17 +15,17 @@ end
 
 ;GO
 to go
-;    ask hives[
-;      if (count workers-here = 0)
-;      [ask self 
-;        [die]
-;       ask queens-here
-;       [die]
-;      ]
-;      ]
-    check-all-and-swarm
-    bees-reproduce
-    reproduce-mites
+  ask hives[
+    if (count workers-here = 0)[
+      ask self 
+      [die]
+      ask queens-here
+      [die]
+    ]
+  ]
+  check-all-and-swarm
+  bees-reproduce
+  reproduce-mites
 
   
 

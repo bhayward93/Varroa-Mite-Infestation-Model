@@ -1,7 +1,7 @@
 ; == INITIALISATION ======================================================
 ; -- PATCHES -------------------------------------------------------------
 to set-up-patches
-  ask patches [set pcolor 64]
+  ask patches [set pcolor 62]
 end
 ; -- END PATCHES ---------------------------------------------------------
 
@@ -61,7 +61,6 @@ to set-up-bees
     ; Update the current load of the hive, and the total bee count across
     ; the board, accordingly.
     set load (load + initial-bees-per-hive + 1)
-    increment-bee-count (load)
 
     ]
 end
@@ -92,9 +91,6 @@ to set-up-mites
           set current-host this-worker     ; Latches the mite upon this bee.
         ]
       ]
-
-      ; Update the total mite count across the entire model.
-      increment-mite-count initial-mites-per-bee
     ]
   ]
 end

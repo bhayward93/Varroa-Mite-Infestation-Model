@@ -1,38 +1,87 @@
 ; == UTILS ===============================================================
-
-
-to increment-bee-count [i]
-  set bee-count (bee-count + i)
-end
-
-to decrease-bee-count [i]
-  set bee-count (bee-count - i)
-end
-
+; == BEES ================================================================
 to reduce-bee-life [i]
   set life-remaining (life-remaining - i)
 end
 
-to increment-mite-count [i]
-  set mite-count (mite-count + i)
-end
-
-to decrease-mite-count [i]
-  set mite-count (mite-count - i)
-end
-
 to kill-bee
   report-death
-  decrease-bee-count 1
   die
+end
+
+to birth-workers [q x y h]
+  sprout-workers q
+  [
+        set color 45                  ; Yellow
+        set shape "bug"               ; Closest resemblance to a bee.
+        setxy x y                     ; Places them at this patch.
+        set current-hive h            ; Binds them to this hive  
+        set-max-lifespan self
+        set life-remaining max-lifespan
+  ]
+end
+
+to birth-queens [q x y oh]
+  sprout-queens q
+  [
+    set color 47                           ; Light Yellow
+    set shape "bug"                        ; Closest resemblance to a bee.
+    setxy x y                              ; Places her at this patch.
+    set max-lifespan 40
+    set life-remaining max-lifespan
+    set current-hive oh                    ; Binds her to this hive.
+  ]
+end
+
+to set-max-lifespan[this-worker]
+    ask current-hive[
+      let cap capacity
+      
+      ask this-worker[
+        ifelse(cap > 50)
+        [set max-lifespan 22.5]
+        [set max-lifespan 26.5]
+      ]
+    ]
+end
+; == END BEES ============================================================
+
+; == MITES ===============================================================
+to birth-mites [q x y h]
+  sprout-mites q[
+      setxy x y                                ; Places them at this patch.
+      set max-lifespan 40
+      set current-host h                       ; Latches the mite upon this bee.
+    ]
 end
 
 to kill-mite
   report-death
-  decrease-mite-count 1
   die
 end
+; == END MITES ===========================================================
 
+; == HIVES ===============================================================
+to build-hives [q]
+  sprout-hives q
+  [
+    set shape "circle"
+    set color 25
+    
+    ifelse hive-capacity-slider = 0
+    [set capacity (random (60 - 40)) + 40]
+    [set capacity hive-capacity-slider]
+    
+    let this-hive self
+  ]
+end
+
+to report-hive-capacity
+  type self print capacity
+end
+; == END HIVES ===========================================================
+
+; == GENERAL =============================================================
 to report-life-remaining
   type self print life-remaining
 end
@@ -41,24 +90,9 @@ to report-hive-coord-y
   type self print pycor 
 end
 
+
 to report-death
   ;type self print " has died!"
 end
-
-to report-hive-capacity
-  type self print capacity
-end
-to set-max-lifespan[this-worker]
-
-    ask current-hive[
-      let cap capacity
-      
-      ask this-worker[
-      ifelse(cap > 50)
-        [set max-lifespan 22.5]
-        [set max-lifespan 26.5]
-      ]
-    ]
-  
-end
-; == END UTILS ===========================================================
+; == END GENERAL =========================================================
+; == UTILS ===============================================================
