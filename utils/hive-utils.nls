@@ -56,6 +56,15 @@ to collapse-hive
   [die]
 end
 
+to update-hive-counts
+  ask hives
+  [
+    set hive-workers (count workers-here)
+    set hive-queens (count queens-here)
+    set hive-mites (count mites-here)
+  ]
+end
+
 to report-hive-capacity
   type self print capacity
 end

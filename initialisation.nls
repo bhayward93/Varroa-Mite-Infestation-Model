@@ -41,11 +41,6 @@ to set-up-bees
       
       birth-queens 1 px py this-hive
     ]
-
-    ; Update the current load of the hive, and the total bee count across
-    ; the board, accordingly.
-    set load (load + initial-bees-per-hive + 1)
-
   ]
 end
 ; -- END BEES ------------------------------------------------------------

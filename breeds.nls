@@ -12,8 +12,8 @@ hives-own [
   hive-workers
   hive-queens
   hive-broods
+  hive-mites
   capacity
-  load
 ]
 
 queens-own [

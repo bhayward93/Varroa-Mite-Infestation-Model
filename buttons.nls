@@ -21,7 +21,7 @@ to go
     ]
   ]
   
-  if count hives <= 0 [
+  if (count hives <= 0) [
     finalise-model
   ]
   
@@ -42,6 +42,8 @@ to go
 
   ask workers
   [age-bee]
+  
+  update-hive-counts
 
   tick
 end
