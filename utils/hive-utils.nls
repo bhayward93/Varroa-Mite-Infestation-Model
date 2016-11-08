@@ -13,6 +13,36 @@ to build-hives [q]
   ]
 end
 
+; Establish the site of a new hive at an empty patch.
+to establish-new-hive-site [np w q ox oy oh]
+  ask np
+  [
+    let new-x pxcor
+    let new-y pycor
+    
+    if(count hives-here = 0)
+    [construct-new-hive w q ox oy new-x new-y oh]
+  ]
+end
+
+;Build a new hive and relocate bees to it.
+to construct-new-hive [w q ox oy nx ny oh]
+  ; Build a new hive and pass it into a local variable.
+  build-hives 1
+  let new-hive one-of hives-on self
+  
+  ; Send a percentage of the workers to the new hive.
+  move-workers (swarm-percentage / 100) w nx ny new-hive
+  
+  ; Send the old queen to the new hive. A new queen will be born at
+  ; and take command of the old one.
+  move-queen q nx ny new-hive
+  birth-queens 1 ox oy oh
+  
+  ask mites
+  [check-mite-host]
+end
+
 to report-hive-capacity
   type self print capacity
 end

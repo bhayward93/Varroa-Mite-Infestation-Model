@@ -7,16 +7,23 @@ to birth-mites [q x y h]
     ]
 end
 
-to find-new-host[this-mite]
-  ask this-mite
+to check-mite-host
+  if current-host = NOBODY
   [
-    ifelse (count workers-here != 0)[
-      let new-host (one-of workers-here)
-      set current-host new-host
-      move-to new-host
-    ]
-    [kill-mite]
+    find-new-host ;catches an error where the bee has no host
   ]
+  
+  move-to current-host
+end
+
+to find-new-host
+  ifelse (count workers-here != 0)
+  [
+    let new-host (one-of workers-here)
+    set current-host new-host
+    move-to new-host
+  ]
+  [kill-mite]
 end
 
 ; If a mite is latched onto a bee, diminish the bee's life a little faster.

@@ -37,32 +37,16 @@ to set-up-bees
       let px [pxcor] of myself
 
       ; Create an initial number of worker bees belonging to that hive.
-      sprout-workers initial-bees-per-hive
-      [
-        set color 45                  ; Yellow
-        set shape "bug"               ; Closest resemblance to a bee.
-        setxy px py                   ; Places them at this patch.
-        set current-hive this-hive    ; Binds them to this hive.
-        set-max-lifespan self
-        set life-remaining max-lifespan
-      ]
-
-      sprout-queens 1
-      [
-        set color 47                  ; Light Yellow
-        set shape "bug"               ; Closest resemblance to a bee.
-        setxy px py                   ; Places her at this patch.
-        set max-lifespan 40
-        set life-remaining max-lifespan
-        set current-hive this-hive    ; Binds her to this hive.
-      ]
+      birth-workers initial-bees-per-hive px py this-hive
+      
+      birth-queens 1 px py this-hive
     ]
 
     ; Update the current load of the hive, and the total bee count across
     ; the board, accordingly.
     set load (load + initial-bees-per-hive + 1)
 
-    ]
+  ]
 end
 ; -- END BEES ------------------------------------------------------------
 
@@ -70,10 +54,8 @@ end
 to set-up-mites
   if (initial-mites-per-bee > 0)
   [
-
     ask workers
     [
-
       ; Required to pass into each mite's current-host property.
       let this-worker self
 
@@ -84,12 +66,7 @@ to set-up-mites
         let py [pycor] of myself
 
         ; Spawn new mites.
-        sprout-mites initial-mites-per-bee
-        [
-          setxy px py                      ; Places them at this patch.
-          set max-lifespan 40
-          set current-host this-worker     ; Latches the mite upon this bee.
-        ]
+        birth-mites initial-mites-per-bee px py this-worker
       ]
     ]
   ]

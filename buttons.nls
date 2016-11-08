@@ -17,12 +17,22 @@ end
 to go
   ask hives[
     if (count workers-here = 0)[
-      ask self 
-      [die]
+      ask workers-here
+      [kill-bee]
       ask queens-here
+      [kill-bee]
+      ask mites-here
+      [kill-mite]
+      ask self 
       [die]
     ]
   ]
+  
+  if count hives <= 0 [
+    tick
+    stop
+  ]
+  
   check-all-and-swarm
   bees-reproduce
   reproduce-mites
@@ -34,8 +44,8 @@ to go
   ask mites [
     ifelse(current-host != nobody)
     [nibble-bee]
-    [find-new-host self
-      nibble-bee]
+    [find-new-host
+     nibble-bee]
   ]
 
   ask workers

@@ -30,35 +30,7 @@ to swarm-bees
         ]
       ]
       
-      ask next-patch
-      [
-        let new-x pxcor
-        let new-y pycor
-        
-        if(count hives-here = 0)
-        [
-          ; Build a hive at this patch if it's empty.
-          build-hives 1
-
-          let new-hive one-of hives-on self
-
-          ; Send 70% of the workers to the new hive.
-          move-workers 0.7 workers-on-this-patch new-x new-y new-hive
-
-          ; Send the old queen to the new hive. A new queen will be born at
-          ; and take command of the old one.
-          move-queen old-queen new-x new-y new-hive
-          birth-queens 1 old-x old-y old-hive
-
-          ask mites[
-            if current-host = NOBODY
-            [
-              find-new-host self ;catches an error where the bee has no host
-            ]
-            move-to current-host
-          ]
-        ]
-      ]
+      establish-new-hive-site next-patch workers-on-this-patch old-queen old-x old-y old-hive
     ]
   ]
 end

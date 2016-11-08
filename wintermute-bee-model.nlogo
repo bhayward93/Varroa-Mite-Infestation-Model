@@ -80,8 +80,8 @@ NIL
 SLIDER
 135
 10
-312
-43
+168
+166
 initial-hives
 initial-hives
 0
@@ -90,13 +90,13 @@ initial-hives
 1
 1
 Hives
-HORIZONTAL
+VERTICAL
 
 SLIDER
-135
-45
-372
-78
+175
+10
+208
+216
 initial-bees-per-hive
 initial-bees-per-hive
 0
@@ -105,7 +105,7 @@ initial-bees-per-hive
 1
 1
 Bees
-HORIZONTAL
+VERTICAL
 
 MONITOR
 5
@@ -130,19 +130,19 @@ count mites
 11
 
 SLIDER
-135
-80
-377
-113
+215
+10
+248
+221
 initial-mites-per-bee
 initial-mites-per-bee
 0
 100
-0
+10
 1
 1
 Mites
-HORIZONTAL
+VERTICAL
 
 PLOT
 5
@@ -181,10 +181,10 @@ NIL
 1
 
 SLIDER
-135
-150
-367
-183
+295
+10
+328
+211
 hive-capacity-slider
 hive-capacity-slider
 0
@@ -193,13 +193,13 @@ hive-capacity-slider
 1
 1
 Bees
-HORIZONTAL
+VERTICAL
 
 SLIDER
-135
-115
-387
-148
+255
+10
+288
+221
 mite-lifespan-impact
 mite-lifespan-impact
 0
@@ -208,7 +208,22 @@ mite-lifespan-impact
 1
 1
 Weeks
-HORIZONTAL
+VERTICAL
+
+SLIDER
+335
+10
+368
+191
+swarm-percentage
+swarm-percentage
+0
+100
+70
+1
+1
+%
+VERTICAL
 
 @#$#@#$#@
 ## WHAT IS IT?
