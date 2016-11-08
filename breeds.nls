@@ -9,6 +9,7 @@ breed [mites mite]
 breed [hives hive]
 
 hives-own [
+  new
   hive-workers
   hive-queens
   hive-broods

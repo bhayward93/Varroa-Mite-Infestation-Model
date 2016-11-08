@@ -2,6 +2,7 @@
 to build-hives [q]
   sprout-hives q
   [
+    set new true
     set shape "circle"
     set color 25
     
@@ -56,12 +57,14 @@ to collapse-hive
   [die]
 end
 
-to update-hive-counts
+to update-hives
   ask hives
   [
     set hive-workers (count workers-here)
     set hive-queens (count queens-here)
     set hive-mites (count mites-here)
+    
+    set new false
   ]
 end
 

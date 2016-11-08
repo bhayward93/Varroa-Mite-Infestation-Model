@@ -138,7 +138,7 @@ initial-mites-per-bee
 initial-mites-per-bee
 0
 100
-10
+1
 1
 1
 Mites
@@ -189,7 +189,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 100
-50
+100
 1
 1
 Bees
