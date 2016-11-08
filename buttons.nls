@@ -27,7 +27,7 @@ to go
   
   check-all-and-swarm
   bees-reproduce
-  reproduce-mites
+;  reproduce-mites
 
   
 
@@ -38,6 +38,7 @@ to go
     [nibble-bee]
     [find-new-host
      nibble-bee]
+    age-mite
   ]
 
   ask workers

@@ -20,6 +20,10 @@ to birth-workers [q x y h]
         set current-hive h            ; Binds them to this hive  
         set-max-lifespan self
         set life-remaining max-lifespan
+        let this-worker self
+        ask patch-here[
+        birth-mites (random 3) pxcor pycor this-worker
+        ] 
   ]
 end
 

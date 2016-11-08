@@ -189,7 +189,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 100
-60
+40
 1
 1
 Bees
@@ -204,7 +204,7 @@ mite-lifespan-impact
 mite-lifespan-impact
 0
 70
-2
+1
 1
 1
 Weeks
@@ -228,13 +228,13 @@ VERTICAL
 SLIDER
 170
 10
-207
+203
 181
 initial-mites-per-hive
 initial-mites-per-hive
 0
 100
-20
+0
 1
 1
 NIL

@@ -2,7 +2,8 @@
 to birth-mites [q x y h]
   sprout-mites q[
       setxy x y                                ; Places them at this patch.
-      set max-lifespan 40
+      set max-lifespan 27
+      set life-remaining max-lifespan
       set current-host h                       ; Latches the mite upon this bee.
     ]
 end
@@ -47,5 +48,12 @@ end
 to kill-mite
   report-death
   die
+end
+
+to age-mite
+  reduce-bee-life 1
+  
+  if(life-remaining <= 0)
+  [kill-mite]
 end
 ; == END MITES ===========================================================

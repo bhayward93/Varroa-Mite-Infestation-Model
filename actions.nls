@@ -45,17 +45,17 @@ to bees-reproduce
         let hive self
       
         ask patch-here
-        [birth-workers 3 queen-x queen-y hive]
+        [birth-workers 2 queen-x queen-y hive]
       ]
     ]
   ]
 end
 
-to reproduce-mites
-ask hives[
-  ask patch-here
-  [birth-mites 1 pxcor pycor (one-of workers-here)]
-]
+;to reproduce-mites
+;ask hives[
+;  ask patch-here
+;  [birth-mites 1 pxcor pycor (one-of workers-here)]
+;]
    
-end
+;end
 ; == END ACTIONS =========================================================

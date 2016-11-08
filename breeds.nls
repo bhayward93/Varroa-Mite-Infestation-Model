@@ -39,6 +39,7 @@ broods-own [
 
 mites-own [
   max-lifespan
+  life-remaining
   current-host
 ]
 ; == END BREEDS ==========================================================
