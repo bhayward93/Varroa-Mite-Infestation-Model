@@ -8,4 +8,11 @@ end
 to report-death
   ;type self print " has died!"
 end
+
+; Produce one last tick and end the model.
+; Used to wrap things up in the event of all hives collapsing.
+to finalise-model
+  tick
+  stop
+end
 ; == END GENERAL =========================================================

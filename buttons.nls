@@ -17,20 +17,12 @@ end
 to go
   ask hives[
     if (count workers-here = 0)[
-      ask workers-here
-      [kill-bee]
-      ask queens-here
-      [kill-bee]
-      ask mites-here
-      [kill-mite]
-      ask self 
-      [die]
+      collapse-hive
     ]
   ]
   
   if count hives <= 0 [
-    tick
-    stop
+    finalise-model
   ]
   
   check-all-and-swarm

@@ -43,6 +43,19 @@ to construct-new-hive [w q ox oy nx ny oh]
   [check-mite-host]
 end
 
+; Collapse a hive if it can no longer sustain itself.
+; If this happens, everything dies.
+to collapse-hive
+  ask workers-here
+  [kill-bee]
+  ask queens-here
+  [kill-bee]
+  ask mites-here
+  [kill-mite]
+  ask self 
+  [die]
+end
+
 to report-hive-capacity
   type self print capacity
 end
