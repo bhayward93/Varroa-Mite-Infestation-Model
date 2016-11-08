@@ -101,7 +101,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 100
-60
+40
 1
 1
 Bees
@@ -189,7 +189,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 100
-40
+20
 1
 1
 Bees

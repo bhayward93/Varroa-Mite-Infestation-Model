@@ -45,7 +45,7 @@ to go
   [age-bee]
   
   update-hives
-
+  update-hive-color
   tick
 end
 ; == END BUTTONS =========================================================

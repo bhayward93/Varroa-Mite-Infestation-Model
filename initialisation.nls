@@ -14,7 +14,7 @@ to set-up-hives
     [set capacity hive-capacity-slider]
     
     set shape "circle"
-    set color 25
+    set color 25 
     setxy random-pxcor random-pycor
   ]
 end

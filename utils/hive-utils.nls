@@ -57,6 +57,17 @@ to collapse-hive
   [die]
 end
 
+to update-hive-color
+  ask hives[
+    let percent-full (count (workers-here) / capacity) * 100  
+        if (percent-full <= 20) [set color 15 stop]
+        if (percent-full <= 40) [set color 16 stop]
+        if (percent-full <= 60) [set color 23 stop]
+        if (percent-full <= 80) [set color 24 stop]
+        if (percent-full  > 80) [set color 25 stop]
+  ]
+end
+
 to update-hives
   ask hives
   [
