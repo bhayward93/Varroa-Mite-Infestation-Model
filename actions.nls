@@ -37,13 +37,17 @@ end
 
 ; Birth bees (very placeholder-y)
 to bees-reproduce
-  ask queens[  
-    let queen-x xcor
-    let queen-y ycor
-    let hive current-hive
-    
-    ask patch-here
-    [birth-workers 3 queen-x queen-y hive]
+  ask queens[
+    ask hives-here[
+      if(new = false) [
+        let queen-x xcor
+        let queen-y ycor
+        let hive self
+      
+        ask patch-here
+        [birth-workers 3 queen-x queen-y hive]
+      ]
+    ]
   ]
 end
 

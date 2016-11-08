@@ -189,7 +189,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 100
-100
+50
 1
 1
 Bees
