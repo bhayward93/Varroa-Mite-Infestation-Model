@@ -38,7 +38,7 @@ to set-up-bees
 
       ; Create an initial number of worker bees belonging to that hive.
       birth-workers initial-bees-per-hive px py this-hive
-      
+      birth-mites initial-mites-per-hive px py one-of workers-here
       birth-queens 1 px py this-hive
     ]
   ]

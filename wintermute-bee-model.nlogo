@@ -78,9 +78,9 @@ NIL
 1
 
 SLIDER
-135
+90
 10
-168
+123
 166
 initial-hives
 initial-hives
@@ -93,15 +93,15 @@ Hives
 VERTICAL
 
 SLIDER
-175
+130
 10
-208
+163
 216
 initial-bees-per-hive
 initial-bees-per-hive
 0
 100
-10
+60
 1
 1
 Bees
@@ -109,9 +109,9 @@ VERTICAL
 
 MONITOR
 5
-210
+215
 83
-255
+260
 bee count
 (count workers + count queens)
 17
@@ -120,9 +120,9 @@ bee count
 
 MONITOR
 85
-210
+215
 167
-255
+260
 mite count
 count mites
 17
@@ -138,7 +138,7 @@ initial-mites-per-bee
 initial-mites-per-bee
 0
 100
-1
+0
 1
 1
 Mites
@@ -189,7 +189,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 100
-50
+60
 1
 1
 Bees
@@ -204,7 +204,7 @@ mite-lifespan-impact
 mite-lifespan-impact
 0
 70
-1
+2
 1
 1
 Weeks
@@ -223,6 +223,21 @@ swarm-percentage
 1
 1
 %
+VERTICAL
+
+SLIDER
+170
+10
+207
+181
+initial-mites-per-hive
+initial-mites-per-hive
+0
+100
+20
+1
+1
+NIL
 VERTICAL
 
 @#$#@#$#@
