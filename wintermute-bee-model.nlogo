@@ -13,13 +13,14 @@ __includes
 ; == GLOBALS =============================================================
 globals [
   hives-set
+  season
 ]
 ; == END GLOBALS =========================================================
 @#$#@#$#@
 GRAPHICS-WINDOW
-390
+410
 10
-829
+849
 496
 16
 17
@@ -100,8 +101,8 @@ SLIDER
 initial-bees-per-hive
 initial-bees-per-hive
 0
-100
-40
+200
+10
 1
 1
 Bees
@@ -188,7 +189,7 @@ SLIDER
 hive-capacity-slider
 hive-capacity-slider
 0
-100
+200
 20
 1
 1
@@ -235,6 +236,32 @@ initial-mites-per-hive
 0
 100
 0
+1
+1
+NIL
+VERTICAL
+
+MONITOR
+315
+215
+385
+260
+Season
+season
+17
+1
+11
+
+SLIDER
+370
+10
+407
+156
+winter-threshold
+winter-threshold
+0
+52
+44
 1
 1
 NIL

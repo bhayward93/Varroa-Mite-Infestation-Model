@@ -1,4 +1,9 @@
 ; == MITES ===============================================================
+; Reduce a mite's life by a secified number of weeks.
+to reduce-mite-life [i]
+  set life-remaining (life-remaining - i)
+end
+
 to birth-mites [q x y h]
   sprout-mites q[
       setxy x y                                ; Places them at this patch.
@@ -51,7 +56,7 @@ to kill-mite
 end
 
 to age-mite
-  reduce-bee-life 1
+  reduce-mite-life 1
   
   if(life-remaining <= 0)
   [kill-mite]

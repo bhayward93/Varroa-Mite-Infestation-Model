@@ -11,10 +11,18 @@ to set-up
   set-up-hives
   set-up-bees
   set-up-mites
+  set-up-time
 end
 
 ;GO
 to go
+  if (ticks > 52)
+  [reset-ticks]
+  
+  ifelse(ticks > winter-threshold)
+  [set season "winter"]
+  [set season "summer"]
+  
   ask hives[
     if (count workers-here = 0)[
       collapse-hive
@@ -26,9 +34,10 @@ to go
   ]
   
   check-all-and-swarm
-  bees-reproduce
-;  reproduce-mites
-
+  if(season = "summer")[
+    bees-reproduce
+    ;reproduce-mites
+  ]
   
 
   ; Have the presence of the mites diminish the health of the bee they
