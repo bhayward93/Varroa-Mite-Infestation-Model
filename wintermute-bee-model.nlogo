@@ -102,7 +102,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 200
-10
+40
 1
 1
 Bees
@@ -190,7 +190,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 200
-30
+40
 1
 1
 Bees
@@ -306,7 +306,7 @@ bee-repro-rate
 bee-repro-rate
 0
 100
-2
+14
 1
 1
 Bees
@@ -321,7 +321,7 @@ mite-repro-rate
 mite-repro-rate
 0
 100
-2
+3
 1
 1
 Mites

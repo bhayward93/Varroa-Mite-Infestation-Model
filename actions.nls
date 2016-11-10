@@ -36,7 +36,7 @@ to swarm-bees
 end
 
 ; Birth bees (very placeholder-y)
-to bees-reproduce
+to reproduce-bees
   ask queens[
     ask hives-here[
       if(new = false) [

@@ -37,7 +37,7 @@ to go
   
   check-all-and-swarm
   if(season = "summer")[
-    bees-reproduce
+    reproduce-bees
     ;reproduce-mites
   ]
   

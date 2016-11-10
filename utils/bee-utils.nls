@@ -87,7 +87,7 @@ end
 
 ; Nudge the bee one week toward its expected life expectancy.
 to age-bee
-  reduce-bee-life 1
+  reduce-bee-life 7
   
   if(life-remaining <= 0)
   [kill-bee]
