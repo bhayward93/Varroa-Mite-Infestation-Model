@@ -7,6 +7,7 @@ end
 to birth-mites [q x y h]
   sprout-mites q[
       setxy x y                                ; Places them at this patch.
+      set hidden? true
       set max-lifespan 27
       set life-remaining max-lifespan
       set current-host h                       ; Latches the mite upon this bee.

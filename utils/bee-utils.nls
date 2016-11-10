@@ -22,7 +22,8 @@ to birth-workers [q x y h]
   sprout-workers q
   [
         set color 45                  ; Yellow
-        set shape "bug"               ; Closest resemblance to a bee.
+        ;set shape "bug"               ; Closest resemblance to a bee.
+        set hidden? true
         setxy x y                     ; Places them at this patch.
         set current-hive h            ; Binds them to this hive  
         set-max-lifespan self
@@ -55,7 +56,8 @@ to birth-queens [q x y h]
   sprout-queens q
   [
     set color 47                           ; Light Yellow
-    set shape "bug"                        ; Closest resemblance to a bee.
+    ;set shape "bug"                        ; Closest resemblance to a bee.
+    set hidden? true
     setxy x y                              ; Places her at this patch.
     set max-lifespan 40
     set life-remaining max-lifespan
