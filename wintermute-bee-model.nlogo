@@ -270,7 +270,7 @@ VERTICAL
 SLIDER
 505
 10
-542
+538
 216
 external-death-chance
 external-death-chance
@@ -285,7 +285,7 @@ VERTICAL
 SLIDER
 545
 10
-582
+578
 231
 external-pickup-chance
 external-pickup-chance
@@ -300,7 +300,7 @@ VERTICAL
 SLIDER
 245
 10
-282
+278
 186
 bee-repro-rate
 bee-repro-rate
@@ -315,7 +315,7 @@ VERTICAL
 SLIDER
 285
 10
-322
+318
 191
 mite-repro-rate
 mite-repro-rate
