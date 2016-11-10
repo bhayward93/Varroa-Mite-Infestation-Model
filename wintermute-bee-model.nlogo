@@ -190,7 +190,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 200
-40
+60
 1
 1
 Bees
@@ -199,14 +199,14 @@ VERTICAL
 SLIDER
 345
 10
-378
-221
+382
+226
 mite-lifespan-impact
 mite-lifespan-impact
 0
 4
 1
-1
+.1
 1
 Weeks
 VERTICAL
@@ -261,7 +261,7 @@ winter-threshold
 winter-threshold
 0
 52
-30
+44
 1
 1
 NIL
