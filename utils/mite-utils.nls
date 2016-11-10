@@ -48,8 +48,8 @@ to nibble-bee
 
   ; When the bee dies, the mite is taken with it.
   ; (Not accurate right now)
-  if(current-host = nobody)
-  [kill-mite]
+  ;if(current-host = nobody)
+  ;[kill-mite]
 end
 
 to kill-mite

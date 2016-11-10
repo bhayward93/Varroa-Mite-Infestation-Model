@@ -9,8 +9,9 @@ to kill-bee
   let this-bee self
   
   ask mites[
-    if(current-host = this-bee)
+    ifelse(current-host = this-bee and season != "winter")
     [set ext-death (random 100)]
+    [set ext-death 101]
   ]
   
   report-death

@@ -199,7 +199,7 @@ VERTICAL
 SLIDER
 345
 10
-382
+378
 221
 mite-lifespan-impact
 mite-lifespan-impact
@@ -676,23 +676,48 @@ NetLogo 5.3.1
 @#$#@#$#@
 <experiments>
   <experiment name="experiment" repetitions="1" runMetricsEveryStep="true">
-    <setup>reset
-set-up</setup>
+    <setup>set-up</setup>
     <go>go</go>
-    <timeLimit steps="52"/>
-    <metric>count workers</metric>
+    <timeLimit steps="260"/>
+    <metric>ticks</metric>
+    <metric>count workers + count queens</metric>
     <metric>count mites</metric>
+    <metric>count hives</metric>
+    <enumeratedValueSet variable="bee-repro-rate">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-pickup-chance">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-repro-rate">
+      <value value="3"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="hive-capacity-slider">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-bee">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-hives">
-      <value value="1"/>
+    <enumeratedValueSet variable="external-death-chance">
+      <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-bees-per-hive">
       <value value="50"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-mites-per-bee">
+    <enumeratedValueSet variable="initial-hives">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-lifespan-impact">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="swarm-percentage">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-hive">
       <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="winter-threshold">
+      <value value="30"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>

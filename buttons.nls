@@ -31,7 +31,8 @@ to go
   ]
   
   if (count hives <= 0) [
-    finalise-model
+    tick
+    stop
   ]
   
   check-all-and-swarm
