@@ -28,9 +28,12 @@ to birth-workers [q x y h]
         set-max-lifespan self
         set life-remaining max-lifespan
         let this-worker self
-        ask patch-here[
-        birth-mites (random mite-repro-rate) pxcor pycor this-worker
-        ] 
+        if(count mites-here >0)
+        [
+          ask patch-here[
+            birth-mites (random mite-repro-rate) pxcor pycor this-worker
+          ]
+        ]
   ]
 end
 
