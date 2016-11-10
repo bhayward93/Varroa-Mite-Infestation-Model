@@ -7,6 +7,7 @@ end
 to birth-mites [q x y h]
   sprout-mites q[
       setxy x y                                ; Places them at this patch.
+      set hidden? true
       set max-lifespan 27
       set life-remaining max-lifespan
       set current-host h                       ; Latches the mite upon this bee.
@@ -34,6 +35,7 @@ end
 
 ; If a mite is latched onto a bee, diminish the bee's life a little faster.
 to nibble-bee
+  let life-left life-remaining 
   ask current-host
   [
     ; Reduce the bee's remaining life down by 5 (temp value)
@@ -56,7 +58,7 @@ to kill-mite
 end
 
 to age-mite
-  reduce-mite-life 1
+  reduce-mite-life 7
   
   if(life-remaining <= 0)
   [kill-mite]

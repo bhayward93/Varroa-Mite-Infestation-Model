@@ -102,7 +102,7 @@ initial-bees-per-hive
 initial-bees-per-hive
 0
 200
-10
+50
 1
 1
 Bees
@@ -190,7 +190,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 200
-30
+40
 1
 1
 Bees
@@ -199,12 +199,12 @@ VERTICAL
 SLIDER
 345
 10
-378
+382
 221
 mite-lifespan-impact
 mite-lifespan-impact
 0
-70
+4
 1
 1
 1
@@ -261,7 +261,7 @@ winter-threshold
 winter-threshold
 0
 52
-44
+30
 1
 1
 NIL
@@ -306,7 +306,7 @@ bee-repro-rate
 bee-repro-rate
 0
 100
-2
+14
 1
 1
 Bees
@@ -321,7 +321,7 @@ mite-repro-rate
 mite-repro-rate
 0
 100
-2
+3
 1
 1
 Mites
