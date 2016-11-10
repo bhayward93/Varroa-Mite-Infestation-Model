@@ -45,9 +45,19 @@ to bees-reproduce
         let hive self
       
         ask patch-here
-        [birth-workers 2 queen-x queen-y hive]
+        [birth-workers bee-repro-rate queen-x queen-y hive]
       ]
     ]
+  ]
+end
+
+; Have a bee obtain a mite in the wild and bring it in.
+to bring-in-mites
+  ask n-of external-pickup-chance workers-here
+  [
+    let this-worker self
+    ask patch-here
+    [birth-mites 1 pxcor pycor this-worker]
   ]
 end
 

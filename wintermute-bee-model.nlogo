@@ -18,9 +18,9 @@ globals [
 ; == END GLOBALS =========================================================
 @#$#@#$#@
 GRAPHICS-WINDOW
-410
+585
 10
-849
+1024
 496
 16
 17
@@ -110,9 +110,9 @@ VERTICAL
 
 MONITOR
 5
-215
+245
 83
-260
+290
 bee count
 (count workers + count queens)
 17
@@ -121,9 +121,9 @@ bee count
 
 MONITOR
 85
-215
+245
 167
-260
+290
 mite count
 count mites
 17
@@ -131,9 +131,9 @@ count mites
 11
 
 SLIDER
-215
+205
 10
-248
+238
 221
 initial-mites-per-bee
 initial-mites-per-bee
@@ -147,9 +147,9 @@ VERTICAL
 
 PLOT
 5
-260
+290
 385
-495
+525
 Bees vs Mite Population
 Weeks
 Counts
@@ -182,24 +182,24 @@ NIL
 1
 
 SLIDER
-295
+385
 10
-328
+418
 211
 hive-capacity-slider
 hive-capacity-slider
 0
 200
-20
+30
 1
 1
 Bees
 VERTICAL
 
 SLIDER
-255
+345
 10
-288
+378
 221
 mite-lifespan-impact
 mite-lifespan-impact
@@ -212,9 +212,9 @@ Weeks
 VERTICAL
 
 SLIDER
-335
+425
 10
-368
+458
 191
 swarm-percentage
 swarm-percentage
@@ -243,9 +243,9 @@ VERTICAL
 
 MONITOR
 315
-215
+245
 385
-260
+290
 Season
 season
 17
@@ -253,9 +253,9 @@ season
 11
 
 SLIDER
-370
+465
 10
-407
+498
 156
 winter-threshold
 winter-threshold
@@ -265,6 +265,66 @@ winter-threshold
 1
 1
 NIL
+VERTICAL
+
+SLIDER
+505
+10
+542
+216
+external-death-chance
+external-death-chance
+0
+100
+20
+0.1
+1
+%
+VERTICAL
+
+SLIDER
+545
+10
+582
+231
+external-pickup-chance
+external-pickup-chance
+0
+100
+1
+0.1
+1
+%
+VERTICAL
+
+SLIDER
+245
+10
+282
+186
+bee-repro-rate
+bee-repro-rate
+0
+100
+2
+1
+1
+Bees
+VERTICAL
+
+SLIDER
+285
+10
+322
+191
+mite-repro-rate
+mite-repro-rate
+0
+100
+2
+1
+1
+Mites
 VERTICAL
 
 @#$#@#$#@

@@ -27,6 +27,8 @@ to go
     if (count workers-here = 0)[
       collapse-hive
     ]
+    
+    bring-in-mites
   ]
   
   if (count hives <= 0) [
@@ -42,10 +44,13 @@ to go
 
   ; Have the presence of the mites diminish the health of the bee they
   ; are latched upon.
-  ask mites [
+  ask mites [    
     ifelse(current-host != nobody)
     [nibble-bee]
-    [find-new-host
+    [
+      if(ext-death < external-death-chance)
+      [kill-mite]
+      find-new-host
      nibble-bee]
     age-mite
   ]

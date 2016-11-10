@@ -6,6 +6,13 @@ end
 
 ; Kill a bee.
 to kill-bee
+  let this-bee self
+  
+  ask mites[
+    if(current-host = this-bee)
+    [set ext-death (random 100)]
+  ]
+  
   report-death
   die
 end
@@ -22,7 +29,7 @@ to birth-workers [q x y h]
         set life-remaining max-lifespan
         let this-worker self
         ask patch-here[
-        birth-mites (random 3) pxcor pycor this-worker
+        birth-mites (random mite-repro-rate) pxcor pycor this-worker
         ] 
   ]
 end
