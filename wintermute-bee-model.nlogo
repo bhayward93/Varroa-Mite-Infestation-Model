@@ -190,7 +190,7 @@ hive-capacity-slider
 hive-capacity-slider
 0
 200
-60
+40
 1
 1
 Bees
@@ -260,7 +260,7 @@ SLIDER
 winter-threshold
 winter-threshold
 0
-52
+51
 44
 1
 1
@@ -675,7 +675,232 @@ NetLogo 5.3.1
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="experiment" repetitions="1" runMetricsEveryStep="true">
+  <experiment name="Small Hive, 1.3 Week mite impact (30K Bees)" repetitions="5" runMetricsEveryStep="true">
+    <setup>set-up</setup>
+    <go>go</go>
+    <timeLimit steps="260"/>
+    <metric>ticks</metric>
+    <metric>count workers + count queens</metric>
+    <metric>count mites</metric>
+    <metric>count hives</metric>
+    <enumeratedValueSet variable="bee-repro-rate">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-pickup-chance">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-repro-rate">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hive-capacity-slider">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-bee">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-death-chance">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-bees-per-hive">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-hives">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-lifespan-impact">
+      <value value="1.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="swarm-percentage">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-hive">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="winter-threshold">
+      <value value="44"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Medium Hive, 1.3 Week mite impact (40K Bees)" repetitions="5" runMetricsEveryStep="true">
+    <setup>set-up</setup>
+    <go>go</go>
+    <timeLimit steps="260"/>
+    <metric>ticks</metric>
+    <metric>count workers + count queens</metric>
+    <metric>count mites</metric>
+    <metric>count hives</metric>
+    <enumeratedValueSet variable="bee-repro-rate">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-pickup-chance">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-repro-rate">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hive-capacity-slider">
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-bee">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-death-chance">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-bees-per-hive">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-hives">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-lifespan-impact">
+      <value value="1.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="swarm-percentage">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-hive">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="winter-threshold">
+      <value value="44"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Large Hive, 1.3 Week mite impact (50K Bees)" repetitions="5" runMetricsEveryStep="true">
+    <setup>set-up</setup>
+    <go>go</go>
+    <timeLimit steps="260"/>
+    <metric>ticks</metric>
+    <metric>count workers + count queens</metric>
+    <metric>count mites</metric>
+    <metric>count hives</metric>
+    <enumeratedValueSet variable="bee-repro-rate">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-pickup-chance">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-repro-rate">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hive-capacity-slider">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-bee">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-death-chance">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-bees-per-hive">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-hives">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-lifespan-impact">
+      <value value="1.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="swarm-percentage">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-hive">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="winter-threshold">
+      <value value="44"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Random Hive, 1.3 Week mite impact (Random Bees)" repetitions="5" runMetricsEveryStep="true">
+    <setup>set-up</setup>
+    <go>go</go>
+    <timeLimit steps="260"/>
+    <metric>ticks</metric>
+    <metric>count workers + count queens</metric>
+    <metric>count mites</metric>
+    <metric>count hives</metric>
+    <enumeratedValueSet variable="bee-repro-rate">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-pickup-chance">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-repro-rate">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hive-capacity-slider">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-bee">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-death-chance">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-bees-per-hive">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-hives">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-lifespan-impact">
+      <value value="1.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="swarm-percentage">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-hive">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="winter-threshold">
+      <value value="44"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Small Hive, 1 Week mite impact (30K Bees)" repetitions="5" runMetricsEveryStep="true">
+    <setup>set-up</setup>
+    <go>go</go>
+    <timeLimit steps="260"/>
+    <metric>ticks</metric>
+    <metric>count workers + count queens</metric>
+    <metric>count mites</metric>
+    <metric>count hives</metric>
+    <enumeratedValueSet variable="bee-repro-rate">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-pickup-chance">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-repro-rate">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hive-capacity-slider">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-bee">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-death-chance">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-bees-per-hive">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-hives">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-lifespan-impact">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="swarm-percentage">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-hive">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="winter-threshold">
+      <value value="44"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Medium Hive, 1 Week mite impact (40K Bees)" repetitions="5" runMetricsEveryStep="true">
     <setup>set-up</setup>
     <go>go</go>
     <timeLimit steps="260"/>
@@ -717,7 +942,97 @@ NetLogo 5.3.1
       <value value="0"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="winter-threshold">
-      <value value="30"/>
+      <value value="44"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Large Hive, 1 Week mite impact (50K Bees)" repetitions="5" runMetricsEveryStep="true">
+    <setup>set-up</setup>
+    <go>go</go>
+    <timeLimit steps="260"/>
+    <metric>ticks</metric>
+    <metric>count workers + count queens</metric>
+    <metric>count mites</metric>
+    <metric>count hives</metric>
+    <enumeratedValueSet variable="bee-repro-rate">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-pickup-chance">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-repro-rate">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hive-capacity-slider">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-bee">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-death-chance">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-bees-per-hive">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-hives">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-lifespan-impact">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="swarm-percentage">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-hive">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="winter-threshold">
+      <value value="44"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="Random Hive, 1 Week mite impact (Random Bees)" repetitions="5" runMetricsEveryStep="true">
+    <setup>set-up</setup>
+    <go>go</go>
+    <timeLimit steps="260"/>
+    <metric>ticks</metric>
+    <metric>count workers + count queens</metric>
+    <metric>count mites</metric>
+    <metric>count hives</metric>
+    <enumeratedValueSet variable="bee-repro-rate">
+      <value value="14"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-pickup-chance">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-repro-rate">
+      <value value="3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="hive-capacity-slider">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-bee">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="external-death-chance">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-bees-per-hive">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-hives">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mite-lifespan-impact">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="swarm-percentage">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-mites-per-hive">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="winter-threshold">
+      <value value="44"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>

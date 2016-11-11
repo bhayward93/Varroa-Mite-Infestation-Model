@@ -16,7 +16,7 @@ end
 
 ;GO
 to go
-  if (ticks > 52)
+  if (ticks > 51)
   [reset-ticks]
   
   ifelse(ticks > winter-threshold)
